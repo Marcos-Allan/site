@@ -1,8 +1,6 @@
 import { Box, Typography } from '@mui/material';
 
-import OptionsButtons from '../OptionsButtons';
-
-function Menu() {
+function MenuSimple() {
 
     return (
         <Box
@@ -27,10 +25,8 @@ function Menu() {
             >
                 TechStore
             </Typography>
-
-            <OptionsButtons />
         </Box>
     )
 }
 
-export default Menu
+export default MenuSimple
