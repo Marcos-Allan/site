@@ -1,33 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeUser, logout } from './redux/userSlice'
+import Menu from './components/Menu'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const {name, isLogged} = useSelector((state:any) => state.user as any)
+  const dispatch = useDispatch()
+
+  function handleLogin () {
+    if(isLogged == false){
+      dispatch(changeUser('Marcos'))
+    }else{
+      dispatch(logout())
+    }
+  }
 
   return (
     <>
+    <Menu />
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        {name ? (
+          <p>{name}</p>
+        ) : (
+          <p>Não há usuario logado</p>
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+      <div
+        onClick={handleLogin}
+      >
+        {isLogged ? (
+          <p>Logout</p>
+        ) : (
+          <p>Login</p>
+        )}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
