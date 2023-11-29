@@ -11,12 +11,17 @@ function ErrorPage(){
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'column',
+                backgroundColor: '#d9d9d9',
             }}
         >
             <Typography
                 variant='h1'
                 sx={{
                     fontSize: '28px',
+                    maxWidth: '70vw',
+                    lineHeight: '40px',
+                    textAlign: 'center',
+                    fontFamily: 'Aldrich, sans-serif',
                 }}
                 >
                 Erro 404! página não encontrada
@@ -26,9 +31,14 @@ function ErrorPage(){
                     variant='contained'
                     sx={{
                         padding: '20px 100px',
+                        width: '70vw',
                         maxWidth: '90vw',
                         marginTop: '20px',
-                        backgroundColor: '#656565',
+                        backgroundColor: '#5C6F73',
+                        borderRadius: '14px',
+                        '&:hover':{
+                            backgroundColor: '#5C6F73',
+                        }
                     }}
                 >
                     <Typography
@@ -36,9 +46,10 @@ function ErrorPage(){
                         sx={{
                             fontSize: '24px',
                             textTransform: 'capitalize',
+                            fontFamily: 'Aldrich, sans-serif',
                         }}
                         >
-                        Voltar para Home
+                        retornar
                     </Typography>
                 </Button>
             </Link>

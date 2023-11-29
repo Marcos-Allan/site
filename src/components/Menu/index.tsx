@@ -1,5 +1,6 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
+import Title from '../Title';
 import OptionsButtons from '../OptionsButtons';
 import Search from '../Search';
 
@@ -8,27 +9,21 @@ function Menu() {
     return (
         <Box
             sx={{
-                width: '100dvw',
+                position: 'fixed',
+                top: '0%',
+                left: '0%',
+                width: '100vw',
+                minHeight: '112px',
                 backgroundColor: '#D9D9D9',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '14px',
                 flexWrap: 'wrap',
+                zIndex: 11,
             }}
             >
-            <Typography
-                variant='h1'
-                sx={{
-                    fontSize: '22px',
-                    fontFamily: 'Aldrich, sans-serif',
-                    flex: 1,
-                    paddingLeft: '30px',
-                    paddingRight: '28px',
-                }}
-            >
-                TechStore
-            </Typography>
+            <Title />
 
             <OptionsButtons />
 

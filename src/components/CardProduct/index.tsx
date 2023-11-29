@@ -7,7 +7,7 @@ import img3 from '../../images/Rectanglemobile.png'
 interface Product {
     descont: number,
     price: string,
-    image: string,
+    image: any,
 }
 
 function CardProduct(props: Product) {
@@ -16,16 +16,19 @@ function CardProduct(props: Product) {
         <Box
             sx={{
                 backgroundColor: '#D9D9D9',
-                maxWidth: '60vw',
+                width: '260px',
+                overflow: 'hidden',
                 margin: '0 auto',
                 display: 'flex',
-                justifyContent: 'center',
                 flexDirection: 'column',
+                justifyContent: 'center',
                 alignItems: 'center',
                 position: 'relative',
-                padding: '14px 18px 18px 18px',
                 borderRadius: '12px',
+                padding: '20px',
+                paddingTop: '14px',
                 paddingBottom: '50px',
+                marginBottom: '20px',
             }}
         >
             {props.descont <= 39 ? (
@@ -128,6 +131,9 @@ function CardProduct(props: Product) {
                     position: 'absolute',
                     bottom: '5%',
                     backgroundColor: '#5C6F73',
+                    '&:hover':{
+                        backgroundColor: '#5C6F73',
+                    }
                 }}
             >
                 <Typography
