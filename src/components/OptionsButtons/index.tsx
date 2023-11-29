@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, Button } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUser, logout } from '../../redux/userSlice' 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -39,37 +39,47 @@ function OptionsButtons() {
                 }
             }}
         >
-            <Link to='/login'>
-                <Box
-                    sx={{
-                        backgroundColor: '#5C6F73',
-                        padding: '4px 10px',
-                        borderRadius: '10px',
-                        flexGrow: 1,
-                        maxWidth: '80px',
-                        margin: '0px 5px',
-                    }}
-                    >
-                    <Typography
+            {!name && (
+                    <Link to='/login'>
+                    <Button
                         sx={{
-                            color: '#ffffff',
-                            fontFamily: 'Aldrich, sans-serif',
-                            fontSize: '12.4px',
-                            textAlign: 'center',
+                            backgroundColor: '#5C6F73',
+                            padding: '4px 10px',
+                            borderRadius: '10px',
+                            flexGrow: 1,
+                            minWidth: '90px',
+                            margin: '0px 5px',
+                            '&:hover':{
+                                backgroundColor: '#5C6F73',
+                            }
                         }}
                         >
-                        Criar Conta
-                    </Typography>
-                </Box>
-            </Link>
-            <Box
+                        <Typography
+                            sx={{
+                                color: '#ffffff',
+                                fontFamily: 'Aldrich, sans-serif',
+                                fontSize: '12px',
+                                textAlign: 'center',
+                                textTransform: 'capitalize',
+                            }}
+                            >
+                            Criar Conta
+                        </Typography>
+                    </Button>
+                </Link>
+            )}
+            <Button
                 sx={{
                     backgroundColor: '#5C6F73',
                     padding: '4px 10px',
                     borderRadius: '10px',
                     flexGrow: 1,
-                    maxWidth: '80px',
+                    maxWidth: '60px',
                     margin: '0px 5px',
+                    '&:hover':{
+                        backgroundColor: '#5C6F73',
+
+                    }
                 }}
                 onClick={handleLogin}
                 >
@@ -77,15 +87,18 @@ function OptionsButtons() {
                     sx={{
                         color: '#ffffff',
                         fontFamily: 'Aldrich, sans-serif',
-                        fontSize: '12.4px',
+                        fontSize: '12px',
                         textAlign: 'center',
+                        textTransform: 'capitalize',
                     }}
                     >
-                    Login
+                    {name ? 'Logout' : 'Login'}
                 </Typography>
-            </Box>
+            </Button>
             <MenuIcon 
                 sx={{
+                    maxWidth: '60px',
+                    paddingRight: '10px',
                     flexGrow: 1,
                 }}
             />
