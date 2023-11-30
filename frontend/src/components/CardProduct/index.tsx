@@ -5,7 +5,7 @@ import img2 from '../../images/Rectanglemobile-1.png'
 import img3 from '../../images/Rectanglemobile.png'
 
 interface Product {
-    descont: number,
+    descont: string,
     price: string,
     image: any,
 }
@@ -31,7 +31,7 @@ function CardProduct(props: Product) {
                 marginBottom: '20px',
             }}
         >
-            {props.descont <= 39 ? (
+            {Number(props.descont) <= 50 ? (
                 <Box
                 sx={{
                     width: '60px',
@@ -103,6 +103,9 @@ function CardProduct(props: Product) {
             )}
             {props.image == 'img3' && (
                 <img src={img3} />
+            )}
+            {props.image !== 'img1' && props.image !== 'img2' && props.image !== 'img3' && (
+                <img width={250} height={200} src={props.image} />
             )}
 
             <Box

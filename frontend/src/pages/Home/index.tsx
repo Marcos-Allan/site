@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react'
+import { api } from '../../services/api'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { handleMenu } from '../../redux/menuSlice'
 import { Box, Typography, Drawer } from '@mui/material'
@@ -8,6 +11,12 @@ import CardProduct from '../../components/CardProduct'
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
+interface ProductsProps {
+  price: string,
+  image: string,
+  descont: string
+}
+
 function Home() {
   
   const { isLogged } = useSelector((state:any) => state.user as any)
@@ -15,6 +24,18 @@ function Home() {
   const { isOpen } = useSelector((state:any) => state.menu as any)
   
   const dispatch = useDispatch()
+
+  const [produtos, setProdutos] = useState<ProductsProps[]>([])
+
+    useEffect(() => {
+        loadProducts()
+    },[])
+
+    async function loadProducts(){
+        const response = await api.get('/products')
+        console.log(response.data)
+        setProdutos(response.data)
+    }
 
   return (
 
@@ -73,9 +94,31 @@ function Home() {
 
       <Categories />
 
-      <CardProduct descont={55} price='60.00' image='img1' />
-      <CardProduct descont={10} price='89.90' image='img2' />
-      <CardProduct descont={40} price='89.90' image='img3' />
+      <CardProduct descont='55' price='60.00' image='img1' />
+      <CardProduct descont='10' price='89.90' image='img2' />
+      <CardProduct descont='40' price='89.90' image='img3' />
+      
+      <Typography
+      variant='h3'
+        sx={{
+          textAlign: 'center',
+          fontSize: '22px',
+          fontWeight: '500',
+          letterSpacing: '3px',
+          maxWidth: '60vw',
+          lineHeight: '28px',
+          margin: '20px auto',
+          fontFamily: 'Aldrich, sans-serif',
+        }}
+      >Produtos Cadastrados em um Data Base</Typography>
+
+      {produtos.map((produto) => (
+                <CardProduct
+                    descont={produto.descont}
+                    image={produto.image}
+                    price={produto.price}
+                />
+            ))}
 
       <Drawer
           anchor='left'

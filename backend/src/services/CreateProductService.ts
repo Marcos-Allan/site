@@ -1,10 +1,27 @@
 import prismaClient from '../prisma'
 
-class CreateProductService{
-    async execute() {
-        console.log("ROTA FOI CHAMADA")
+interface CreateProductProps {
+    price: string,
+    descont: string,
+    image: string,
+}
 
-        return { ok:true }
+class CreateProductService{
+    async execute({ price, descont, image }: CreateProductProps) {
+
+        if(!price || !descont || !image){
+            throw new Error("Produto sem informações o suficiente")
+        }
+
+        const product = await prismaClient.products.create({
+            data:{
+                price,
+                descont,
+                image,
+            }
+        })
+
+        return product
     }
 }
 
