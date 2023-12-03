@@ -32,7 +32,7 @@ function Home() {
     },[])
 
     async function loadProducts(){
-        const response = await api.get('/products')
+        const response = await api.get('/')
         console.log(response.data)
         setProdutos(response.data)
     }

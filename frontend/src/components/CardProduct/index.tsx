@@ -1,5 +1,7 @@
 import { Box, Button, Typography } from '@mui/material'
 
+import styles from './CardProduct.module.css'
+
 import img1 from '../../images/Rectanglemobile-2.png'
 import img2 from '../../images/Rectanglemobile-1.png'
 import img3 from '../../images/Rectanglemobile.png'
@@ -105,7 +107,7 @@ function CardProduct(props: Product) {
                 <img src={img3} />
             )}
             {props.image !== 'img1' && props.image !== 'img2' && props.image !== 'img3' && (
-                <img width={250} height={200} src={props.image} />
+                <img className={styles.img} src={props.image} />
             )}
 
             <Box
