@@ -1,15 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-
-const dbPassword = 'JZPUWhXDHXlVYvGr'
-const dbUser = 'allanmenezes880'
+require('dotenv').config()
 
 const app = express()
 const port = 3000
 app.use(express.json())
 app.use(cors())
-mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@techstore.jnxr1sz.mongodb.net/?retryWrites=true&w=majority`)
+
 
 const Product = mongoose.model('Product', {
     price: String,
@@ -35,5 +33,8 @@ app.get('/', async (req, res) => {
 
 
 app.listen(port, () => {
+    
+    mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@techstore.jnxr1sz.mongodb.net/?retryWrites=true&w=majority`)
+    
     console.log('server initialized')
 })
