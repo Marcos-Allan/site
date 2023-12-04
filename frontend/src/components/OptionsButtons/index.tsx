@@ -1,20 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { changeUser, logout } from '../../redux/userSlice' 
+import { logout } from '../../redux/userSlice' 
 
 import { Box } from '@mui/material'
 import MuiButton from '../MuiButton';
 import MuiIconButton from '../MuiIconButton';
 
 function OptionsButtons() {
-    
+
     const dispatch = useDispatch()
-    const { name } = useSelector((state:any) => state.user as any)
+    const { first_name, last_name, isLogged, img } = useSelector((state:any) => state.user as any)
 
     function handleLogin(){
-        if(!name){
-            dispatch(changeUser('Allan'))
-        }else{
+
+        console.log(first_name, last_name, isLogged, img)
+
+        if(first_name){
             dispatch(logout())
+        }else{
+            return
         }
     }
     
@@ -40,18 +43,26 @@ function OptionsButtons() {
                 }
             }}
         >
-            {!name && (
+            {!first_name && first_name === '' && (
                 <MuiButton
                     text='criar conta'
                     link='/login'
                     clicked={() => console.log('clicado')}
                 />
             )}
-            <MuiButton
-                text={name ? 'Logout' : 'Login'}
-                link='/'
-                clicked={handleLogin}
-            />
+            {first_name !== '' ? (
+                <MuiButton
+                    text={'Logout'}
+                    link='/'
+                    clicked={handleLogin}
+                />
+            ):(
+                <MuiButton
+                    text={'Login'}
+                    link='/login'
+                    clicked={() => console.log('oi')}
+                />
+            )}
 
             <MuiIconButton />
 

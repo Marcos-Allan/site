@@ -19,7 +19,12 @@ interface ProductsProps {
 
 function Home() {
   
-  const { isLogged } = useSelector((state:any) => state.user as any)
+  const { 
+    isLogged,
+    first_name,
+    last_name,
+    img
+} = useSelector((state:any) => state.user as any)
   
   const { isOpen } = useSelector((state:any) => state.menu as any)
   
@@ -29,6 +34,8 @@ function Home() {
 
     useEffect(() => {
         loadProducts()
+        console.log(isLogged)
+        console.log(first_name, img, last_name, isLogged)
     },[])
 
     async function loadProducts(){
@@ -48,48 +55,65 @@ function Home() {
         paddingTop: '164px',
       }}
     >
-      <Menu />
+      <Menu signs={false} />
 
       {isLogged && (
-        <Box
-          sx={{
-            width:'38px',
-            backgroundColor: '#d9d9d9',
-            position: 'fixed',
-            top: '140px',
-            right: '0%',
-            padding: '6px',
-            paddingBottom:'10px',
-            borderBottomLeftRadius: '30px',
-            zIndex: '10',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-          }}
-          >
-          <ShoppingCartIcon
-            sx={{
-              color: '#5C6F73',
-              fontSize: '28px',
-            }}
-          />
-          <Typography
+        <>
+          <Box
             sx={{
               position: 'absolute',
-              top: '0%',
-              left: '-24%',
-              width: '20px',
-              height: '20px',
-              borderRadius: '50%',
-              backgroundColor:'#5C6F73',
-              color: '#d9d9d9',
-              textAlign:  'center',
-              fontSize: '12px',
+              top: '143px',
+              zIndex: 11,
+              left: '2px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',    
             }}
-          >
-            10
-          </Typography>
-        </Box>
+            >
+            <img src={img} style={{ width: '45px', height: '45px', borderRadius: '50%',}} />
+          </Box>
+
+          <Box
+            sx={{
+              width:'38px',
+              backgroundColor: '#d9d9d9',
+              position: 'fixed',
+              top: '140px',
+              right: '0%',
+              padding: '6px',
+              paddingBottom:'10px',
+              borderBottomLeftRadius: '30px',
+              zIndex: '10',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+            }}
+            >
+            <ShoppingCartIcon
+              sx={{
+                color: '#5C6F73',
+                fontSize: '28px',
+              }}
+              />
+            <Typography
+              sx={{
+                position: 'absolute',
+                top: '0%',
+                left: '-24%',
+                width: '20px',
+                height: '20px',
+                borderRadius: '50%',
+                backgroundColor:'#5C6F73',
+                color: '#d9d9d9',
+                textAlign:  'center',
+                fontSize: '12px',
+              }}
+              >
+              10
+            </Typography>
+          </Box>
+        </>
       )}
 
       <Categories />

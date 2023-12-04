@@ -3,8 +3,14 @@ import { Box } from '@mui/material';
 import Title from '../Title';
 import OptionsButtons from '../OptionsButtons';
 import Search from '../Search';
+import MuiIconButton from '../MuiIconButton';
+import MuiReturnButton from '../MuiReturnButton';
 
-function Menu() {
+interface Props {
+    signs: boolean
+}
+
+function Menu(props: Props) {
 
     return (
         <Box
@@ -13,7 +19,7 @@ function Menu() {
                 top: '0%',
                 left: '0%',
                 width: '100vw',
-                minHeight: '112px',
+                minHeight: props.signs == true ? '40px' : '112px',
                 backgroundColor: '#D9D9D9',
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -24,10 +30,19 @@ function Menu() {
             }}
             >
             <Title />
+            {props.signs == false && (
+                <>
+                    <OptionsButtons />
 
-            <OptionsButtons />
-
-            <Search />
+                    <Search />
+                </>
+            )}
+            {props.signs == true && (
+                <>
+                    <MuiReturnButton />
+                    <MuiIconButton />
+                </>
+            )}
         </Box>
     )
 }
