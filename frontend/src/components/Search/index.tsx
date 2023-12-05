@@ -1,6 +1,10 @@
 import { Box, Button, InputBase, Typography } from '@mui/material'
+import { useSelector } from 'react-redux'
 
 function Search() {
+
+    const { isDark } = useSelector((state:any) => state.theme as any)
+
     return(
         <Box
             sx={{
@@ -15,7 +19,8 @@ function Search() {
             <InputBase
                 sx={{
                     flexGrow: 1,
-                    backgroundColor: '#EBF0F2',
+                    backgroundColor: isDark == false ?'#ebf0f2' : '#313E40',
+                    color: isDark == false ?'#000000' : '#ffffff',
                     borderTopLeftRadius: '20px',
                     borderBottomLeftRadius: '20px',
                     padding: '0px 20px',
@@ -26,18 +31,18 @@ function Search() {
             <Button
                 variant='contained'
                 sx={{
-                    backgroundColor: '#5C6F73',
+                    backgroundColor: isDark == false ? '#5C6F73' : '#d9d9d9',
                     borderRadius: '0px',
                     borderTopRightRadius: '20px',
                     borderBottomRightRadius: '20px',
                     '&:hover':{
-                        backgroundColor: '#5C6F73',
+                        backgroundColor: isDark == false ? '#5C6F73' : '#d9d9d9',
                     }
                 }}
             >
                 <Typography
                     sx={{
-                        color: '#ffffff',
+                        color: isDark == false ? '#ffffff' : '#000000',
                         textTransform: 'capitalize',
                         fontFamily: 'Aldrich, sans-serif',
                     }}

@@ -6,11 +6,15 @@ import Search from '../Search';
 import MuiIconButton from '../MuiIconButton';
 import MuiReturnButton from '../MuiReturnButton';
 
+import { useSelector } from 'react-redux';
+
 interface Props {
     signs: boolean
 }
 
 function Menu(props: Props) {
+
+    const { isDark } = useSelector((state:any) => state.theme as any)
 
     return (
         <Box
@@ -20,13 +24,13 @@ function Menu(props: Props) {
                 left: '0%',
                 width: '100vw',
                 minHeight: props.signs == true ? '40px' : '112px',
-                backgroundColor: '#D9D9D9',
+                backgroundColor: isDark == false ? '#D9D9D9' : '#5C6F73',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '14px',
                 flexWrap: 'wrap',
-                zIndex: 11,
+                zIndex: 21,
             }}
             >
             <Title />

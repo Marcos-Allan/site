@@ -3,6 +3,8 @@ import { api } from '../../services/api'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { handleMenu } from '../../redux/menuSlice'
+import { handleDarkMode } from '../../redux/themeSlice'
+
 import { Box, Typography, Drawer } from '@mui/material'
 
 import Menu from '../../components/Menu'
@@ -27,6 +29,8 @@ function Home() {
 } = useSelector((state:any) => state.user as any)
   
   const { isOpen } = useSelector((state:any) => state.menu as any)
+
+  const { isDark } = useSelector((state:any) => state.theme as any)
   
   const dispatch = useDispatch()
 
@@ -53,6 +57,7 @@ function Home() {
         overflow: 'hidden',
         minHeight: '100dvh',
         paddingTop: '164px',
+        backgroundColor: isDark == false ? '#ebf0f2' : '#2e3c41',  
       }}
     >
       <Menu signs={false} />
@@ -61,14 +66,14 @@ function Home() {
         <>
           <Box
             sx={{
-              position: 'absolute',
+              position: 'fixed',
               top: '143px',
               zIndex: 11,
               left: '2px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              flexDirection: 'column',    
+              flexDirection: 'column',
             }}
             >
             <img src={img} style={{ width: '45px', height: '45px', borderRadius: '50%',}} />
@@ -77,7 +82,7 @@ function Home() {
           <Box
             sx={{
               width:'38px',
-              backgroundColor: '#d9d9d9',
+              backgroundColor: isDark == false ? '#d9d9d9' : '#5C6F73',
               position: 'fixed',
               top: '140px',
               right: '0%',
@@ -92,7 +97,7 @@ function Home() {
             >
             <ShoppingCartIcon
               sx={{
-                color: '#5C6F73',
+                color: isDark == false ? '#5C6F73' : '#d9d9d9',
                 fontSize: '28px',
               }}
               />
@@ -133,6 +138,7 @@ function Home() {
           lineHeight: '28px',
           margin: '20px auto',
           fontFamily: 'Aldrich, sans-serif',
+          color: isDark == false ? '#000000' : '#ffffff',
         }}
       >Produtos Cadastrados em um Data Base</Typography>
 
@@ -150,18 +156,38 @@ function Home() {
           onClose={() => dispatch(handleMenu(false))}
       >
         <Box
-          p={2}
-          width='250px'
-          textAlign='center'
-          role='presentation'
-        >
-          <Typography
-            variant='h6'
-            component='div'
-          >
-            TechStore Menu
-          </Typography>
-        </Box>
+                    p={2}
+                    width='66vw'
+                    height='100%'
+                    textAlign='center'
+                    role='presentation'
+                    sx={{
+                        backgroundColor: isDark == false ? '#ffffff' : '#000000',
+                    }}
+                >
+                    <Typography
+                        variant='h6'
+                        component='div'
+                        sx={{ 
+                            color: isDark == false ? '#000000' : '#ffffff',
+                        }}
+                    >
+                        TechStore Menu
+                    </Typography>
+                    <Typography
+                        onClick={() => {
+                          dispatch(handleDarkMode(!isDark))
+                          dispatch(handleMenu(false))
+                        }}
+                        variant='h6'
+                        component='div'
+                        sx={{ 
+                            color: isDark == false ? '#000000' : '#ffffff',
+                        }}
+                    >
+                        { isDark == false ? 'Dark' : 'Light' }
+                    </Typography>
+                </Box>
       </Drawer>
 
     </Box>

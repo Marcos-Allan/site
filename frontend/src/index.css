@@ -11,7 +11,28 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 100dvw;
-  height: 100vdh;
+  width: 100vw;
+  overflow-x: hidden;
+  height: 100dvh;
+  background-color: #ebf0f2;
+}
+
+/* LIGHT MODE */
+body::-webkit-scrollbar{
+  width: 6px;
+  background-color: #ebf0f2;
+}
+
+body::-webkit-scrollbar-thumb{
+  background-color: #5C6F73;
+}
+
+/* DARK MODE */
+body::-webkit-scrollbar{
+  width: 6px;
+  background-color: #313e40;
+}
+
+body::-webkit-scrollbar-thumb{
   background-color: #ebf0f2;
 }

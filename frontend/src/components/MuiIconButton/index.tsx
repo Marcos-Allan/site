@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleMenu } from "../../redux/menuSlice";
 
 import { IconButton } from "@mui/material/"
@@ -6,6 +6,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 function MuiIconButton(){
     
     const dispatch = useDispatch()
+
+    const { isDark } = useSelector((state:any) => state.theme as any)
 
     return(
         <IconButton
@@ -17,6 +19,7 @@ function MuiIconButton(){
                 justifyContent: 'center',
                 alignItems: 'center',
                 marginRight: '9.8px',
+                color: isDark == false ? '#5C6F73' : '#d9d9d9',
             }}
         >
             <MenuIcon 

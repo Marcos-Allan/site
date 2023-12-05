@@ -14,6 +14,7 @@ import Menu from '../../components/Menu'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleMenu } from '../../redux/menuSlice'
 import { changeUser } from '../../redux/userSlice'
+import { handleDarkMode } from '../../redux/themeSlice'
 
 interface User {
     given_name: string,
@@ -22,6 +23,8 @@ interface User {
 }
 
 function Login() {
+
+    const { isDark } = useSelector((state:any) => state.theme as any)
 
     const {
         isLogged,
@@ -80,7 +83,7 @@ function Login() {
                 flexDirection: 'column',
                 width: '100dvw',
                 height: '100dvh',
-                backgroundColor: '#ebf0f2',
+                backgroundColor: isDark == false ? '#ebf0f2' : '#313E40',
             }}
             >
 
@@ -105,7 +108,7 @@ function Login() {
                 <Box
                     sx={{
                         width: '75vw',
-                        backgroundColor: '#d9d9d9',
+                        backgroundColor: isDark == false ? '#d9d9d9' : '#5C6F73',
                         display: 'flex',
                         alignItems: 'center',
                         flexDirection: 'column',
@@ -116,7 +119,7 @@ function Login() {
                     <Box
                         onClick={() => login()}
                         sx={{
-                            backgroundColor: '#ebf0f2',
+                            backgroundColor: isDark == false ?'#ebf0f2' : '#313E40',
                             width: '84%',
                             padding:'16px 0px',
                             textAlign: 'center',
@@ -124,14 +127,18 @@ function Login() {
                             margin: '6px 0px'
                         }}
                     >
-                        <Typography>
+                        <Typography
+                            sx={{
+                                color: isDark == false ? '#000000' : '#ffffff',
+                            }}
+                        >
                             Login Com Google
                         </Typography>
                     </Box>
 
                     <Box
                         sx={{
-                            backgroundColor: '#ebf0f2',
+                            backgroundColor: isDark == false ?'#ebf0f2' : '#313E40',
                             width: '84%',
                             padding:'16px 0px',
                             textAlign: 'center',
@@ -139,14 +146,18 @@ function Login() {
                             margin: '6px 0px'
                         }}
                     >
-                        <Typography>
+                        <Typography
+                            sx={{
+                                color: isDark == false ? '#000000' : '#ffffff',
+                            }}
+                        >
                             Login Com Email
                         </Typography>
                     </Box>
 
                     <Box
                         sx={{
-                            backgroundColor: '#ebf0f2',
+                            backgroundColor: isDark == false ?'#ebf0f2' : '#313E40',
                             width: '84%',
                             padding:'16px 0px',
                             textAlign: 'center',
@@ -154,7 +165,11 @@ function Login() {
                             margin: '6px 0px'
                         }}
                     >
-                        <Typography>
+                        <Typography
+                            sx={{
+                                color: isDark == false ? '#000000' : '#ffffff',
+                            }}
+                        >
                             Login Com Facebook
                         </Typography>
                     </Box>
@@ -180,15 +195,36 @@ function Login() {
             >
                 <Box
                     p={2}
-                    width='250px'
+                    width='66vw'
+                    height='100%'
                     textAlign='center'
                     role='presentation'
+                    sx={{
+                        backgroundColor: isDark == false ? '#ffffff' : '#000000',
+                    }}
                 >
                     <Typography
                         variant='h6'
                         component='div'
+                        sx={{ 
+                            color: isDark == false ? '#000000' : '#ffffff',
+                        }}
                     >
                         TechStore Menu
+                    </Typography>
+                    
+                    <Typography
+                        onClick={() => {
+                            dispatch(handleDarkMode(!isDark))
+                            dispatch(handleMenu(false))
+                        }}
+                        variant='h6'
+                        component='div'
+                        sx={{ 
+                            color: isDark == false ? '#000000' : '#ffffff',
+                        }}
+                    >
+                        { isDark == false ? 'Dark' : 'Light' }
                     </Typography>
                 </Box>
             </Drawer>

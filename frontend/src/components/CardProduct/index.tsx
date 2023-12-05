@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from '@mui/material'
-
-import styles from './CardProduct.module.css'
+import { useSelector } from 'react-redux'
 
 import img1 from '../../images/Rectanglemobile-2.png'
 import img2 from '../../images/Rectanglemobile-1.png'
@@ -14,10 +13,13 @@ interface Product {
 
 function CardProduct(props: Product) {
 
+    const { isDark } = useSelector((state:any) => state.theme as any)
+
     return(
+        
         <Box
             sx={{
-                backgroundColor: '#D9D9D9',
+                backgroundColor: isDark == false ? '#D9D9D9' : '#5C6F73',
                 width: '260px',
                 overflow: 'hidden',
                 margin: '0 auto',
@@ -33,11 +35,10 @@ function CardProduct(props: Product) {
                 marginBottom: '20px',
             }}
         >
-            {Number(props.descont) <= 50 ? (
                 <Box
                 sx={{
                     width: '60px',
-                    backgroundColor: '#fd7c7c',
+                    backgroundColor: Number(props.descont) <= 50 ? '#fd7c7c' : '#a9fd7c',
                     position: 'absolute',
                     top: '0%',
                     right: '0%',
@@ -51,7 +52,7 @@ function CardProduct(props: Product) {
             >
                 <Typography
                     sx={{
-                        color: '#000000',
+                        color: isDark == false ? '#000000' : '#000000',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -64,39 +65,7 @@ function CardProduct(props: Product) {
                     -{props.descont}%
                 </Typography>
             </Box>
-            ) : (
-                <Box
-                sx={{
-                    width: '60px',
-                    backgroundColor: '#a9fd7c',
-                    position: 'absolute',
-                    top: '0%',
-                    right: '0%',
-                    borderTopRightRadius: '12px',
-                    padding: '6px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderBottomLeftRadius: '90px',
-                }}
-            >
-                <Typography
-                    sx={{
-                        color: '#000000',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        textAlign: 'center',
-                        fontWeight: 'light',
-                        fontSize: '19px',
-                        fontFamily: 'Aldrich, sans-serif',
-                    }}
-                >
-                    -{props.descont}%
-                </Typography>
-            </Box>
-            )}
-
+            
             {props.image == 'img1' && (
                 <img src={img1} />
             )}
@@ -107,7 +76,14 @@ function CardProduct(props: Product) {
                 <img src={img3} />
             )}
             {props.image !== 'img1' && props.image !== 'img2' && props.image !== 'img3' && (
-                <img className={styles.img} src={props.image} />
+                <img
+                    style={{
+                        width: '263px',
+                        height: '182px',
+                        borderRadius: '14px',
+                    }}
+                    src={props.image}
+                />
             )}
 
             <Box
@@ -122,7 +98,7 @@ function CardProduct(props: Product) {
                 <Typography
                     sx={{
                         fontFamily: 'Aldrich, sans-serif',
-                        color: '#ffffff'
+                        color: isDark == false ? '#000000' : '#ffffff'
                     }}
                     >
                     U$ {props.price}
@@ -135,16 +111,16 @@ function CardProduct(props: Product) {
                     width: '91%',
                     position: 'absolute',
                     bottom: '5%',
-                    backgroundColor: '#5C6F73',
+                    backgroundColor: isDark == false ? '#8FA1A6' : '#313E40',
                     '&:hover':{
-                        backgroundColor: '#5C6F73',
+                        backgroundColor: isDark == false ? '#8FA1A6' : '#313E40',
                     }
                 }}
             >
                 <Typography
                     sx={{
                         fontFamily: 'Aldrich, sans-serif',
-                        color: '#ffffff',
+                        color: isDark == false ? '#000000' : '#ffffff',
                     }}
                 >
                     Add to cart
