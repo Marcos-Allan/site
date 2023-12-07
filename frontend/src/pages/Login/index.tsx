@@ -22,6 +22,10 @@ interface User {
     picture: string,
 }
 
+import googleIcon from '../../images/Google_icon.png'
+import facebookIcon from '../../images/Facebook_icon.png'
+import gmailIcon from '../../images/Gmail_icon.png'
+
 function Login() {
 
     const { isDark } = useSelector((state:any) => state.theme as any)
@@ -124,16 +128,27 @@ function Login() {
                             padding:'16px 0px',
                             textAlign: 'center',
                             borderRadius: '10px',
-                            margin: '6px 0px'
+                            margin: '6px 0px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
+                            flexDirection: 'row',
                         }}
                     >
                         <Typography
                             sx={{
+                                flexGrow: 1,
                                 color: isDark == false ? '#000000' : '#ffffff',
                             }}
                         >
                             Login Com Google
                         </Typography>
+                        <img
+                            src={googleIcon}
+                            style={{
+                                marginRight: '15px',
+                            }}
+                        />
                     </Box>
 
                     <Box
@@ -143,16 +158,26 @@ function Login() {
                             padding:'16px 0px',
                             textAlign: 'center',
                             borderRadius: '10px',
-                            margin: '6px 0px'
+                            margin: '6px 0px',
+                            display: 'flex',
+                            justifyContent: 'space-around',
+                            alignItems: 'center',
                         }}
                     >
                         <Typography
                             sx={{
+                                flexGrow: 1,
                                 color: isDark == false ? '#000000' : '#ffffff',
                             }}
                         >
                             Login Com Email
                         </Typography>
+                        <img
+                            src={facebookIcon}
+                            style={{
+                                marginRight: '15px',
+                            }}
+                        /> 
                     </Box>
 
                     <Box
@@ -162,16 +187,26 @@ function Login() {
                             padding:'16px 0px',
                             textAlign: 'center',
                             borderRadius: '10px',
-                            margin: '6px 0px'
+                            margin: '6px 0px',
+                            display: 'flex',
+                            justifyContent: 'space-around',
+                            alignItems: 'center',
                         }}
                     >
                         <Typography
                             sx={{
+                                flexGrow: 1,
                                 color: isDark == false ? '#000000' : '#ffffff',
                             }}
                         >
                             Login Com Facebook
                         </Typography>
+                        <img
+                            src={gmailIcon}
+                            style={{
+                                marginRight: '15px',
+                            }}
+                        />
                     </Box>
 
                 </Box>

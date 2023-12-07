@@ -1,24 +1,60 @@
 import { Box, Button, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 
-import img1 from '../../images/Rectanglemobile-2.png'
-import img2 from '../../images/Rectanglemobile-1.png'
-import img3 from '../../images/Rectanglemobile.png'
+import img1 from '../../images/Rectangle_mobile-2.png'
+import img2 from '../../images/Rectangle_mobile-1.png'
+import img3 from '../../images/Rectangle_mobile.png'
+
+import { useSpring, animated } from '@react-spring/web'
 
 interface Product {
     descont: string,
     price: string,
     image: any,
+    id: string,
 }
 
 function CardProduct(props: Product) {
 
     const { isDark } = useSelector((state:any) => state.theme as any)
 
+    // const [springs, api] = useSpring(
+    //     () => ({
+    //         from: { x: 500 },
+    //         to: { x: 0 },
+    //         x: 0,
+    //         config: {
+    //             duration: 1000
+    //         }
+    //     })
+    // )
+    
+    const [springsClick, apiClick] = useSpring(
+        () => ({
+            from: { x: 500 },
+            to: { x: 0 },
+            x: 0,
+            config: {
+                duration: 350
+            }
+        })
+    )
+
+    function animatedClicked() {
+        apiClick.start({
+            to: [
+                { x: 100,},
+                { x: -100,},
+                { x: 0 }
+            ]
+        })
+    }
+
     return(
         
-        <Box
-            sx={{
+        <animated.div
+            id={props.id}
+            style={{
                 backgroundColor: isDark == false ? '#D9D9D9' : '#5C6F73',
                 width: '260px',
                 overflow: 'hidden',
@@ -33,6 +69,8 @@ function CardProduct(props: Product) {
                 paddingTop: '14px',
                 paddingBottom: '50px',
                 marginBottom: '20px',
+                // ...springs,
+                ...springsClick
             }}
         >
                 <Box
@@ -105,15 +143,16 @@ function CardProduct(props: Product) {
                 </Typography>
             </Box>
             <Button
+                onClick={animatedClicked}
                 variant='contained'
                 sx={{
                     height: '36px',
                     width: '91%',
                     position: 'absolute',
                     bottom: '5%',
-                    backgroundColor: isDark == false ? '#8FA1A6' : '#313E40',
+                    backgroundColor: isDark == false ? '#ebf0f2' : '#313E40',
                     '&:hover':{
-                        backgroundColor: isDark == false ? '#8FA1A6' : '#313E40',
+                        backgroundColor: isDark == false ? '#ebf0f2' : '#313E40',
                     }
                 }}
             >
@@ -126,7 +165,7 @@ function CardProduct(props: Product) {
                     Add to cart
                 </Typography>
             </Button>
-        </Box>
+        </animated.div>
     )
 }
 

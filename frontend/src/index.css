@@ -2,7 +2,8 @@
 
 * {
   font-family: 'Aldrich', sans-serif;
-  width: '100vw'
+  width: '100vw';
+  text-decoration: none;
 }
 
 body {
