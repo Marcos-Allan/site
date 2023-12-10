@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom'
 import { Box, Typography, Button } from '@mui/material'
+import { useSelector } from 'react-redux'
 
 function ErrorPage(){
+
+    const { isDark } = useSelector((state:any) => state.theme as any)
+
     return (
         <Box
             sx={{
@@ -11,7 +15,7 @@ function ErrorPage(){
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'column',
-                backgroundColor: '#d9d9d9',
+                backgroundColor: isDark == false ? '#ebf0f2' : '#2e3c41',
             }}
         >
             <Typography
@@ -22,6 +26,7 @@ function ErrorPage(){
                     lineHeight: '40px',
                     textAlign: 'center',
                     fontFamily: 'Aldrich, sans-serif',
+                    color: isDark == false ? '#000000' : '#ffffff'
                 }}
                 >
                 Erro 404! página não encontrada
@@ -34,10 +39,10 @@ function ErrorPage(){
                         width: '70vw',
                         maxWidth: '90vw',
                         marginTop: '20px',
-                        backgroundColor: '#5C6F73',
+                        backgroundColor: isDark == false ? '#d9d9d9' : '#5C6F73',
                         borderRadius: '14px',
                         '&:hover':{
-                            backgroundColor: '#5C6F73',
+                            backgroundColor: isDark == false ? '#d9d9d9' : '#5C6F73',
                         }
                     }}
                 >
@@ -47,6 +52,7 @@ function ErrorPage(){
                             fontSize: '24px',
                             textTransform: 'capitalize',
                             fontFamily: 'Aldrich, sans-serif',
+                            color: isDark == false ? '#000000' : '#ffffff'
                         }}
                         >
                         retornar

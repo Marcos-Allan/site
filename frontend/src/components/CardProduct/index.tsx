@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import img1 from '../../images/Rectangle_mobile-2.png'
 import img2 from '../../images/Rectangle_mobile-1.png'
@@ -17,17 +18,6 @@ interface Product {
 function CardProduct(props: Product) {
 
     const { isDark } = useSelector((state:any) => state.theme as any)
-
-    // const [springs, api] = useSpring(
-    //     () => ({
-    //         from: { x: 500 },
-    //         to: { x: 0 },
-    //         x: 0,
-    //         config: {
-    //             duration: 1000
-    //         }
-    //     })
-    // )
     
     const [springsClick, apiClick] = useSpring(
         () => ({
@@ -142,29 +132,32 @@ function CardProduct(props: Product) {
                     U$ {props.price}
                 </Typography>
             </Box>
-            <Button
-                onClick={animatedClicked}
-                variant='contained'
-                sx={{
-                    height: '36px',
-                    width: '91%',
-                    position: 'absolute',
-                    bottom: '5%',
-                    backgroundColor: isDark == false ? '#ebf0f2' : '#313E40',
-                    '&:hover':{
-                        backgroundColor: isDark == false ? '#ebf0f2' : '#313E40',
-                    }
-                }}
-            >
-                <Typography
+            
+                <Button
+                    onClick={animatedClicked}
+                    variant='contained'
                     sx={{
-                        fontFamily: 'Aldrich, sans-serif',
-                        color: isDark == false ? '#000000' : '#ffffff',
+                        height: '36px',
+                        width: '91%',
+                        position: 'absolute',
+                        bottom: '5%',
+                        backgroundColor: isDark == false ? '#ebf0f2' : '#313E40',
+                        '&:hover':{
+                            backgroundColor: isDark == false ? '#ebf0f2' : '#313E40',
+                        }
                     }}
                 >
-                    Add to cart
-                </Typography>
-            </Button>
+                    <Link to={`/product/${props.id}`}>
+                        <Typography
+                            sx={{
+                                fontFamily: 'Aldrich, sans-serif',
+                                color: isDark == false ? '#000000' : '#ffffff',
+                            }}
+                        >
+                            Add to cart
+                        </Typography>
+                    </Link>
+                </Button>
         </animated.div>
     )
 }

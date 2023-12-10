@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 import Home from './pages/Home/index.tsx'
 import Login from './pages/Login/index.tsx'
 import ErrorPage from './pages/ErrorPage/index.tsx'
+import Product from './pages/Product/index.tsx'
 
 import './index.css'
 
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/product/:id",
+    element: <Product />,
     errorElement: <ErrorPage />
   }
 ]);

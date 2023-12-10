@@ -17,9 +17,10 @@ import { changeUser } from '../../redux/userSlice'
 import { handleDarkMode } from '../../redux/themeSlice'
 
 interface User {
-    given_name: string,
-    family_name: string,
-    picture: string,
+    isLogged: boolean,
+    first_name: string,
+    last_name: string,
+    img: string,
 }
 
 import googleIcon from '../../images/Google_icon.png'
@@ -29,7 +30,7 @@ import gmailIcon from '../../images/Gmail_icon.png'
 function Login() {
 
     const { isDark } = useSelector((state:any) => state.theme as any)
-
+    
     const {
         isLogged,
         first_name,
@@ -42,6 +43,7 @@ function Login() {
     const dispatch = useDispatch()
 
     const [user, setUser] = useState<User>()
+    const [restart, setRestart] = useState<boolean>(true)
 
 
     const login = useGoogleLogin({
@@ -56,27 +58,33 @@ function Login() {
                     }
                 )
                 console.log(res.data)
-                setUser(res.data)
-
-                const userS = await {
+                
+                const userS = {
                     isLogged: true,
                     first_name: res.data ? res.data.given_name : 'uA',
                     last_name: res.data ? res.data.family_name : 'uM',
                     img: res.data ? res.data.picture : 'uI'
                 }
-
+                setUser(userS)
+                setRestart(!restart)
+                
                 dispatch(changeUser(userS))
 
-                console.log(first_name)
             } catch (error) {
                 console.log(error)
             }
         },
     });
-
+    
     useEffect(() => {
         console.log(isLogged, first_name, last_name, img)
-    },[])
+
+        const userSaved = localStorage.getItem('user')
+        if(userSaved){
+            console.log(JSON.parse(userSaved))
+            setUser(JSON.parse(userSaved))
+        }
+    },[restart])
 
     return (
         <Box
@@ -93,7 +101,7 @@ function Login() {
 
             <Menu signs={true} />
             
-            {user && user.picture && (
+            {user && user.img && (
                 <div
                     style={{
                         marginBottom: '200px',
@@ -102,9 +110,9 @@ function Login() {
                         alignItems: 'center',
                         flexDirection: 'column',    
                     }}>
-                    <img src={user.picture} style={{ width: '80px', height: '80px', borderRadius: '50%',}} />
+                    <img src={user.img} style={{ width: '80px', height: '80px', borderRadius: '50%',}} />
 
-                    <p style={{ fontWeight: 'light', fontSize: '20px', color: '#a5a5a5', marginTop: '40px',}}>{user.given_name} {user.family_name}</p>
+                    <p style={{ fontWeight: 'light', fontSize: '20px', color: '#a5a5a5', marginTop: '40px',}}>{user.first_name} {user.last_name}</p>
                 </div>
             )}
 
