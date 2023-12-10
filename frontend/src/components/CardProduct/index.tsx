@@ -41,7 +41,6 @@ function CardProduct(props: Product) {
     }
 
     return(
-        
         <animated.div
             id={props.id}
             style={{
@@ -59,11 +58,10 @@ function CardProduct(props: Product) {
                 paddingTop: '14px',
                 paddingBottom: '50px',
                 marginBottom: '20px',
-                // ...springs,
                 ...springsClick
             }}
         >
-                <Box
+            <Box
                 sx={{
                     width: '60px',
                     backgroundColor: Number(props.descont) <= 50 ? '#fd7c7c' : '#a9fd7c',
@@ -93,26 +91,28 @@ function CardProduct(props: Product) {
                     -{props.descont}%
                 </Typography>
             </Box>
-            
-            {props.image == 'img1' && (
-                <img src={img1} />
-            )}
-            {props.image == 'img2' && (
-                <img src={img2} />
-            )}
-            {props.image == 'img3' && (
-                <img src={img3} />
-            )}
-            {props.image !== 'img1' && props.image !== 'img2' && props.image !== 'img3' && (
-                <img
-                    style={{
-                        width: '263px',
-                        height: '182px',
-                        borderRadius: '14px',
-                    }}
-                    src={props.image}
-                />
-            )}
+
+            <Link to={`/product/${props.id}`}>
+                {props.image == 'img1' && (
+                    <img src={img1} />
+                )}
+                {props.image == 'img2' && (
+                    <img src={img2} />
+                )}
+                {props.image == 'img3' && (
+                    <img src={img3} />
+                )}
+                {props.image !== 'img1' && props.image !== 'img2' && props.image !== 'img3' && (
+                    <img
+                        style={{
+                            width: '263px',
+                            height: '182px',
+                            borderRadius: '14px',
+                        }}
+                        src={props.image}
+                    />
+                )}
+            </Link>
 
             <Box
                 sx={{
@@ -147,16 +147,15 @@ function CardProduct(props: Product) {
                         }
                     }}
                 >
-                    <Link to={`/product/${props.id}`}>
-                        <Typography
-                            sx={{
-                                fontFamily: 'Aldrich, sans-serif',
-                                color: isDark == false ? '#000000' : '#ffffff',
-                            }}
-                        >
-                            Add to cart
-                        </Typography>
-                    </Link>
+                    <Typography
+                        sx={{
+                            fontFamily: 'Aldrich, sans-serif',
+                            color: isDark == false ? '#000000' : '#ffffff',
+                            zIndex: 12,
+                        }}
+                    >
+                        Add to cart
+                    </Typography>
                 </Button>
         </animated.div>
     )

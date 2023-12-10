@@ -8,13 +8,11 @@ import { useEffect, useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 
-import { Box, Typography, Drawer } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Menu from '../../components/Menu'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { handleMenu } from '../../redux/menuSlice'
 import { changeUser } from '../../redux/userSlice'
-import { handleDarkMode } from '../../redux/themeSlice'
 
 interface User {
     isLogged: boolean,
@@ -26,6 +24,7 @@ interface User {
 import googleIcon from '../../images/Google_icon.png'
 import facebookIcon from '../../images/Facebook_icon.png'
 import gmailIcon from '../../images/Gmail_icon.png'
+import MenuLateral from "../../components/MenuLateral";
 
 function Login() {
 
@@ -37,8 +36,6 @@ function Login() {
         last_name,
         img
     } = useSelector((state:any) => state.user as any)
-
-    const { isOpen } = useSelector((state:any) => state.menu as any)
   
     const dispatch = useDispatch()
 
@@ -231,46 +228,7 @@ function Login() {
                 }}
             /> */}
 
-            <Drawer
-                anchor='left'
-                open={isOpen}
-                onClose={() => dispatch(handleMenu(false))}
-            >
-                <Box
-                    p={2}
-                    width='66vw'
-                    height='100%'
-                    textAlign='center'
-                    role='presentation'
-                    sx={{
-                        backgroundColor: isDark == false ? '#ffffff' : '#000000',
-                    }}
-                >
-                    <Typography
-                        variant='h6'
-                        component='div'
-                        sx={{ 
-                            color: isDark == false ? '#000000' : '#ffffff',
-                        }}
-                    >
-                        TechStore Menu
-                    </Typography>
-                    
-                    <Typography
-                        onClick={() => {
-                            dispatch(handleDarkMode(!isDark))
-                            dispatch(handleMenu(false))
-                        }}
-                        variant='h6'
-                        component='div'
-                        sx={{ 
-                            color: isDark == false ? '#000000' : '#ffffff',
-                        }}
-                    >
-                        { isDark == false ? 'Dark' : 'Light' }
-                    </Typography>
-                </Box>
-            </Drawer>
+            <MenuLateral />
         </Box>
     )
 }

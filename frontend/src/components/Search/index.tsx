@@ -16,6 +16,7 @@ function Search() {
                 marginBottom: '10px',
             }}
         >
+            
             <InputBase
                 sx={{
                     flexGrow: 1,

@@ -7,14 +7,13 @@ function Title() {
 
     return(
 
-
         <Typography
                 variant='h1'
                 sx={{
                     color: isDark == false ? '#000000' : '#ffffff',
                     fontSize: '22px',
                     fontFamily: 'Aldrich, sans-serif',
-                    flex: 1,
+                    flexGrow: 2,
                     padding: '0px 10px',
                 }}
             >

@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { api } from '../../services/api'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import CardProduct from '../../components/CardProduct'
+import Menu from '../../components/Menu'
+import MenuLateral from '../../components/MenuLateral'
 
 interface Product {
     descont: string,
     id: string,
-    img: string,
+    image: string,
     price: string,
 }
 
@@ -34,30 +35,19 @@ function Product(){
                 width: '100vw',
                 height: '100vh',
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 alignItems: 'center',
                 flexDirection: 'column',
                 backgroundColor: isDark == false ? '#ebf0f2' : '#2e3c41',
             }}
         >
-            {/* <Typography
-                sx={{
-                    color: isDark == false ? '#000000' : '#ffffff',
-                    fontSize: '26px',
-                    fontFamily: 'Aldrich, sans-serif',
-                }}
-            >
-                Product {id}
-            </Typography> */}
+            <Menu signs={true} />
             {product && (
-                <CardProduct
-                    descont={product.descont}
-                    id={product.id}
-                    image={product.image}
-                    price={product.price}
-                    key={product.id}
-                />
+                <img src={product.image} style={{ width: '100%', marginTop: '75px' }} />
             )}
+
+            <MenuLateral />
+
         </Box>
     )
 }

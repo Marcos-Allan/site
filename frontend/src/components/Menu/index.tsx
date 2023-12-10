@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import Title from '../Title';
 import OptionsButtons from '../OptionsButtons';
 import Search from '../Search';
-import MuiIconButton from '../MuiIconButton';
+import MuiIconButton from '../MuiMenuButton';
 import MuiReturnButton from '../MuiReturnButton';
 
 import { useSelector } from 'react-redux';

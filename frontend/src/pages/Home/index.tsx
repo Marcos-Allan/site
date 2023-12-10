@@ -1,18 +1,15 @@
 import { useState, useEffect } from 'react'
 import { api } from '../../services/api'
 
-import { useDispatch, useSelector } from 'react-redux'
-import { handleMenu } from '../../redux/menuSlice'
-import { handleDarkMode } from '../../redux/themeSlice'
+import { useSelector } from 'react-redux'
 
-import { Box, Typography, Drawer } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 import Menu from '../../components/Menu'
 import Categories from '../../components/Categories'
 import CardProduct from '../../components/CardProduct'
 import Loading from '../../components/Loading'
-
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import MenuLateral from '../../components/MenuLateral'
 
 interface ProductsProps {
   price: string,
@@ -28,13 +25,9 @@ function Home() {
     first_name,
     last_name,
     img
-} = useSelector((state:any) => state.user as any)
-  
-  const { isOpen } = useSelector((state:any) => state.menu as any)
+  } = useSelector((state:any) => state.user as any)
 
   const { isDark } = useSelector((state:any) => state.theme as any)
-  
-  const dispatch = useDispatch()
 
   const [produtos, setProdutos] = useState<ProductsProps[]>([])
   const [loading, setLoading] = useState<boolean>(false)
@@ -71,65 +64,6 @@ function Home() {
       }}
     >
       <Menu signs={false} />
-
-      {isLogged && (
-        <>
-          <Box
-            sx={{
-              position: 'fixed',
-              top: '143px',
-              zIndex: 11,
-              left: '2px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-            }}
-            >
-            <img src={img} style={{ width: '45px', height: '45px', borderRadius: '50%',}} />
-          </Box>
-
-          <Box
-            sx={{
-              width:'38px',
-              backgroundColor: isDark == false ? '#d9d9d9' : '#5C6F73',
-              position: 'fixed',
-              top: '140px',
-              right: '0%',
-              padding: '6px',
-              paddingBottom:'10px',
-              borderBottomLeftRadius: '30px',
-              zIndex: '10',
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-            }}
-            >
-            <ShoppingCartIcon
-              sx={{
-                color: isDark == false ? '#5C6F73' : '#d9d9d9',
-                fontSize: '28px',
-              }}
-              />
-            <Typography
-              sx={{
-                position: 'absolute',
-                top: '0%',
-                left: '-24%',
-                width: '20px',
-                height: '20px',
-                borderRadius: '50%',
-                backgroundColor:'#5C6F73',
-                color: '#d9d9d9',
-                textAlign:  'center',
-                fontSize: '12px',
-              }}
-              >
-              10
-            </Typography>
-          </Box>
-        </>
-      )}
 
       {loading == true && (
         <Categories />
@@ -169,45 +103,8 @@ function Home() {
 
         </>
       )}
-      <Drawer
-          anchor='left'
-          open={isOpen}
-          onClose={() => dispatch(handleMenu(false))}
-      >
-        <Box
-                    p={2}
-                    width='66vw'
-                    height='100%'
-                    textAlign='center'
-                    role='presentation'
-                    sx={{
-                        backgroundColor: isDark == false ? '#ffffff' : '#000000',
-                    }}
-                >
-                    <Typography
-                        variant='h6'
-                        component='div'
-                        sx={{ 
-                            color: isDark == false ? '#000000' : '#ffffff',
-                        }}
-                    >
-                        TechStore Menu
-                    </Typography>
-                    <Typography
-                        onClick={() => {
-                          dispatch(handleDarkMode(!isDark))
-                          dispatch(handleMenu(false))
-                        }}
-                        variant='h6'
-                        component='div'
-                        sx={{ 
-                            color: isDark == false ? '#000000' : '#ffffff',
-                        }}
-                    >
-                        { isDark == false ? 'Dark' : 'Light' }
-                    </Typography>
-                </Box>
-      </Drawer>
+      
+      <MenuLateral />
 
     </Box>
   )

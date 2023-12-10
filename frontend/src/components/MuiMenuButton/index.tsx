@@ -3,7 +3,8 @@ import { handleMenu } from "../../redux/menuSlice";
 
 import { IconButton } from "@mui/material/"
 import MenuIcon from '@mui/icons-material/Menu';
-function MuiIconButton(){
+
+function MuiMenuButton(){
     
     const dispatch = useDispatch()
 
@@ -32,4 +33,4 @@ function MuiIconButton(){
     )
 }
 
-export default MuiIconButton
+export default MuiMenuButton
