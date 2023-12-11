@@ -26,9 +26,24 @@ import facebookIcon from '../../images/Facebook_icon.png'
 import gmailIcon from '../../images/Gmail_icon.png'
 import MenuLateral from "../../components/MenuLateral";
 
+import { useSpring, animated } from '@react-spring/web'
+
 function Login() {
 
     const { isDark } = useSelector((state:any) => state.theme as any)
+
+    const [ springs, apiClick ] = useSpring(
+        () => ({
+            from: { x: 0, opacity: 1, scale: 1 },
+            to: { x: 0, opacity: 1, scale: 1 },
+            x: 0,
+            opacity: 1,
+            config: {
+                duration: 350,
+                scale: [1, 1, 1],
+            }
+        })
+    )
     
     const {
         isLogged,
@@ -42,6 +57,18 @@ function Login() {
     const [user, setUser] = useState<User>()
     const [restart, setRestart] = useState<boolean>(true)
 
+    function animatedClicked() {
+        apiClick.start({
+            to: [
+                { opacity: 1, scale: 1 },
+                { opacity: 0.5, scale: 0.9 },
+                { opacity: 1, scale: 1 },
+            ],
+                config: {
+                    duration: 150,
+                }
+        })
+    }
 
     const login = useGoogleLogin({
         onSuccess: async (response) => {
@@ -125,9 +152,14 @@ function Login() {
                         padding: '14px',
                     }}
                     >
-                    <Box
-                        onClick={() => login()}
-                        sx={{
+                    <animated.div
+                        onClick={() => {
+                            animatedClicked()
+                            setTimeout(() => {
+                                login()
+                            }, 200);
+                        }}
+                        style={{
                             backgroundColor: isDark == false ?'#ebf0f2' : '#313E40',
                             width: '84%',
                             padding:'16px 0px',
@@ -138,6 +170,7 @@ function Login() {
                             alignItems: 'center',
                             justifyContent: 'space-around',
                             flexDirection: 'row',
+                            ...springs
                         }}
                     >
                         <Typography
@@ -154,7 +187,7 @@ function Login() {
                                 marginRight: '15px',
                             }}
                         />
-                    </Box>
+                    </animated.div>
 
                     <Box
                         sx={{

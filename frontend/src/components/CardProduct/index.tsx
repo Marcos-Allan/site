@@ -2,10 +2,6 @@ import { Box, Button, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import img1 from '../../images/Rectangle_mobile-2.png'
-import img2 from '../../images/Rectangle_mobile-1.png'
-import img3 from '../../images/Rectangle_mobile.png'
-
 import { useSpring, animated } from '@react-spring/web'
 
 interface Product {
@@ -21,11 +17,13 @@ function CardProduct(props: Product) {
     
     const [springsClick, apiClick] = useSpring(
         () => ({
-            from: { x: 500 },
-            to: { x: 0 },
+            from: { x: 500, opacity: 0, scale: 1 },
+            to: { x: 0, opacity: 1, scale: 1 },
             x: 0,
+            opacity: 1,
             config: {
-                duration: 350
+                duration: 400,
+                scale: [1, 1, 1],
             }
         })
     )
@@ -33,10 +31,13 @@ function CardProduct(props: Product) {
     function animatedClicked() {
         apiClick.start({
             to: [
-                { x: 100,},
-                { x: -100,},
-                { x: 0 }
-            ]
+                { opacity: 1, scale: 1 },
+                { opacity: 0.5, scale: 0.9 },
+                { opacity: 1, scale: 1 },
+            ],
+                config: {
+                    duration: 150,
+                }
         })
     }
 
@@ -93,16 +94,6 @@ function CardProduct(props: Product) {
             </Box>
 
             <Link to={`/product/${props.id}`}>
-                {props.image == 'img1' && (
-                    <img src={img1} />
-                )}
-                {props.image == 'img2' && (
-                    <img src={img2} />
-                )}
-                {props.image == 'img3' && (
-                    <img src={img3} />
-                )}
-                {props.image !== 'img1' && props.image !== 'img2' && props.image !== 'img3' && (
                     <img
                         style={{
                             width: '263px',
@@ -111,7 +102,6 @@ function CardProduct(props: Product) {
                         }}
                         src={props.image}
                     />
-                )}
             </Link>
 
             <Box

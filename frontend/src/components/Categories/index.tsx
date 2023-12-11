@@ -1,13 +1,26 @@
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { useSpring, animated } from '@react-spring/web'
 
 function Categories() {
 
     const { isDark } = useSelector((state:any) => state.theme as any)
+    const [ springs ] = useSpring(
+        () => ({
+            from: { x: -500, opacity: 0, scale: 1 },
+            to: { x: 0, opacity: 1, scale: 1 },
+            x: 0,
+            opacity: 1,
+            config: {
+                duration: 350,
+                scale: [1, 1, 1],
+            }
+        })
+    )
 
     return(
-        <Box
-            sx={{
+        <animated.div
+            style={{
                 display: 'flex',
                 justifyContent: 'space-around',
                 alignItems: 'center',
@@ -17,7 +30,8 @@ function Categories() {
                 margin: '0 auto',
                 marginTop: '20px',
                 marginBottom: '20px',
-                padding: '12px 0px'
+                padding: '12px 0px',
+                ...springs
             }}
         >
             <Typography
@@ -60,7 +74,7 @@ function Categories() {
             >
                 Chapéus
             </Typography>
-        </Box>
+        </animated.div>
     )
 }
 

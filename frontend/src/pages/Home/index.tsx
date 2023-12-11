@@ -10,6 +10,7 @@ import Categories from '../../components/Categories'
 import CardProduct from '../../components/CardProduct'
 import Loading from '../../components/Loading'
 import MenuLateral from '../../components/MenuLateral'
+import Message from '../../components/Message'
 
 interface ProductsProps {
   price: string,
@@ -28,9 +29,16 @@ function Home() {
   } = useSelector((state:any) => state.user as any)
 
   const { isDark } = useSelector((state:any) => state.theme as any)
+  const { isCanceled } = useSelector((state:any) => state.message as any)
 
   const [produtos, setProdutos] = useState<ProductsProps[]>([])
   const [loading, setLoading] = useState<boolean>(false)
+  const [canceled, setCanceled] = useState<boolean>(false)
+
+  function handleCanceled() {
+    setCanceled(true)
+    console.log(canceled)
+  }
 
     useEffect(() => {
         loadProducts()
@@ -73,10 +81,6 @@ function Home() {
         <Loading />
       ) : (
         <>
-          <CardProduct descont='55' id='p1' price='60.00' image='img1' />
-          <CardProduct descont='10' id='p2' price='89.90' image='img2' />
-          <CardProduct descont='40' id='p3' price='89.90' image='img3' />
-          
           <Typography
             variant='h3'
             sx={{
@@ -104,6 +108,9 @@ function Home() {
         </>
       )}
       
+      {isCanceled == true || isLogged == true && (
+        <Message />
+      )}
       <MenuLateral />
 
     </Box>
