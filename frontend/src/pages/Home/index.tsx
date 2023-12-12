@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 import { api } from '../../services/api'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { handleCanceled } from '../../redux/messageSlice'
 
 import { Box, Typography } from '@mui/material'
 
@@ -21,6 +22,8 @@ interface ProductsProps {
 
 function Home() {
   
+  const dispatch = useDispatch()
+
   const { 
     isLogged,
     first_name,
@@ -33,20 +36,19 @@ function Home() {
 
   const [produtos, setProdutos] = useState<ProductsProps[]>([])
   const [loading, setLoading] = useState<boolean>(false)
-  const [canceled, setCanceled] = useState<boolean>(false)
-
-  function handleCanceled() {
-    setCanceled(true)
-    console.log(canceled)
-  }
 
     useEffect(() => {
-        loadProducts()
-        console.log(isLogged)
-        console.log(first_name, img, last_name, isLogged)
-        {setTimeout(() => {
-          setLoading(true)
-        }, 2000)}
+      loadProducts()
+      console.log(isLogged)
+      console.log(first_name, img, last_name, isLogged)
+      setLoading(true)
+      console.log('canceled '+isCanceled)
+    },[])
+    
+    useLayoutEffect(() => {
+      if(isLogged == true){
+        dispatch(handleCanceled(true))
+      }
     },[])
 
     async function loadProducts(){
@@ -108,7 +110,7 @@ function Home() {
         </>
       )}
       
-      {isCanceled == true || isLogged == true && (
+      {isCanceled == false && (
         <Message />
       )}
       <MenuLateral />

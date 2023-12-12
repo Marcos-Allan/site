@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import Menu from '../../components/Menu'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,29 +21,18 @@ interface User {
     img: string,
 }
 
-import googleIcon from '../../images/Google_icon.png'
-import facebookIcon from '../../images/Facebook_icon.png'
 import gmailIcon from '../../images/Gmail_icon.png'
+
 import MenuLateral from "../../components/MenuLateral";
 
-import { useSpring, animated } from '@react-spring/web'
+import GoogleLogin from '../../components/GoogleLogin'
+
+import ButtonLogin from "../../components/ButtonLogin";
+import FacebookLoginC from "../../components/FacebookLogin";
 
 function Login() {
 
     const { isDark } = useSelector((state:any) => state.theme as any)
-
-    const [ springs, apiClick ] = useSpring(
-        () => ({
-            from: { x: 0, opacity: 1, scale: 1 },
-            to: { x: 0, opacity: 1, scale: 1 },
-            x: 0,
-            opacity: 1,
-            config: {
-                duration: 350,
-                scale: [1, 1, 1],
-            }
-        })
-    )
     
     const {
         isLogged,
@@ -56,19 +45,6 @@ function Login() {
 
     const [user, setUser] = useState<User>()
     const [restart, setRestart] = useState<boolean>(true)
-
-    function animatedClicked() {
-        apiClick.start({
-            to: [
-                { opacity: 1, scale: 1 },
-                { opacity: 0.5, scale: 0.9 },
-                { opacity: 1, scale: 1 },
-            ],
-                config: {
-                    duration: 150,
-                }
-        })
-    }
 
     const login = useGoogleLogin({
         onSuccess: async (response) => {
@@ -105,7 +81,6 @@ function Login() {
 
         const userSaved = localStorage.getItem('user')
         if(userSaved){
-            console.log(JSON.parse(userSaved))
             setUser(JSON.parse(userSaved))
         }
     },[restart])
@@ -152,100 +127,10 @@ function Login() {
                         padding: '14px',
                     }}
                     >
-                    <animated.div
-                        onClick={() => {
-                            animatedClicked()
-                            setTimeout(() => {
-                                login()
-                            }, 200);
-                        }}
-                        style={{
-                            backgroundColor: isDark == false ?'#ebf0f2' : '#313E40',
-                            width: '84%',
-                            padding:'16px 0px',
-                            textAlign: 'center',
-                            borderRadius: '10px',
-                            margin: '6px 0px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-around',
-                            flexDirection: 'row',
-                            ...springs
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                flexGrow: 1,
-                                color: isDark == false ? '#000000' : '#ffffff',
-                            }}
-                        >
-                            Login Com Google
-                        </Typography>
-                        <img
-                            src={googleIcon}
-                            style={{
-                                marginRight: '15px',
-                            }}
-                        />
-                    </animated.div>
-
-                    <Box
-                        sx={{
-                            backgroundColor: isDark == false ?'#ebf0f2' : '#313E40',
-                            width: '84%',
-                            padding:'16px 0px',
-                            textAlign: 'center',
-                            borderRadius: '10px',
-                            margin: '6px 0px',
-                            display: 'flex',
-                            justifyContent: 'space-around',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                flexGrow: 1,
-                                color: isDark == false ? '#000000' : '#ffffff',
-                            }}
-                        >
-                            Login Com Email
-                        </Typography>
-                        <img
-                            src={facebookIcon}
-                            style={{
-                                marginRight: '15px',
-                            }}
-                        /> 
-                    </Box>
-
-                    <Box
-                        sx={{
-                            backgroundColor: isDark == false ?'#ebf0f2' : '#313E40',
-                            width: '84%',
-                            padding:'16px 0px',
-                            textAlign: 'center',
-                            borderRadius: '10px',
-                            margin: '6px 0px',
-                            display: 'flex',
-                            justifyContent: 'space-around',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                flexGrow: 1,
-                                color: isDark == false ? '#000000' : '#ffffff',
-                            }}
-                        >
-                            Login Com Facebook
-                        </Typography>
-                        <img
-                            src={gmailIcon}
-                            style={{
-                                marginRight: '15px',
-                            }}
-                        />
-                    </Box>
+                    <GoogleLogin event={login} />
+                    <FacebookLoginC />
+                    {/* <ButtonLogin event={login} icon={facebookIcon} platformName="Facebook" /> */}
+                    <ButtonLogin event={login} icon={gmailIcon} platformName="Gmail" />
 
                 </Box>
             )}
