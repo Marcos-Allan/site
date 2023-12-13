@@ -1,8 +1,9 @@
 import { Box, Button, Typography } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { useSpring, animated } from '@react-spring/web'
+import { addProduct } from '../../redux/cartSlice'
 
 interface Product {
     descont: string,
@@ -13,7 +14,16 @@ interface Product {
 
 function CardProduct(props: Product) {
 
+    const dispatch = useDispatch()
+
     const { isDark } = useSelector((state:any) => state.theme as any)
+    const { products } = useSelector((state:any) => state.cart as any)
+
+    function handleAddProductToCart(product:any){
+        // console.log(product)
+        dispatch(addProduct(product))
+        console.log(products)
+    }
     
     const [springsClick, apiClick] = useSpring(
         () => ({
@@ -124,7 +134,12 @@ function CardProduct(props: Product) {
             </Box>
             
                 <Button
-                    onClick={animatedClicked}
+                    onClick={() => {
+                        animatedClicked()
+                        const product:Product = { descont: props.descont, price: props.price, image: props.image, id: props.id }
+                        handleAddProductToCart(product)
+                        // product
+                    }}
                     variant='contained'
                     sx={{
                         height: '36px',

@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 function Title() {
     
@@ -7,7 +8,8 @@ function Title() {
 
     return(
 
-        <Typography
+        <Link to='/'>
+            <Typography
                 variant='h1'
                 sx={{
                     color: isDark == false ? '#000000' : '#ffffff',
@@ -19,6 +21,7 @@ function Title() {
             >
                 TechStore
             </Typography>
+        </Link>
     )
 }
 

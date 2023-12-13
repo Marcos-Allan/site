@@ -5,6 +5,7 @@ import Home from './pages/Home/index.tsx'
 import Login from './pages/Login/index.tsx'
 import ErrorPage from './pages/ErrorPage/index.tsx'
 import Product from './pages/Product/index.tsx'
+import Cart from './pages/Cart/index.tsx'
 
 import './index.css'
 
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
   {
     path: "/product/:id",
     element: <Product />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
     errorElement: <ErrorPage />
   }
 ]);

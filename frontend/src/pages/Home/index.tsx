@@ -12,6 +12,9 @@ import CardProduct from '../../components/CardProduct'
 import Loading from '../../components/Loading'
 import MenuLateral from '../../components/MenuLateral'
 import Message from '../../components/Message'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link } from 'react-router-dom'
+
 
 interface ProductsProps {
   price: string,
@@ -23,6 +26,7 @@ interface ProductsProps {
 function Home() {
   
   const dispatch = useDispatch()
+  const { products } =useSelector((state:any) => state.cart as any)
 
   const { 
     isLogged,
@@ -76,7 +80,50 @@ function Home() {
       <Menu signs={false} />
 
       {loading == true && (
-        <Categories />
+        <>
+        <Link to={'/cart'}>
+            <Box
+              sx={{
+              width:'38px',
+              backgroundColor: isDark == false ? '#d9d9d9' : '#5C6F73',
+              position: 'fixed',
+              top: '140px',
+              right: '0%',
+              padding: '6px',
+              paddingBottom:'10px',
+              borderBottomLeftRadius: '30px',
+              zIndex: '10',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              }}
+          >
+              <ShoppingCartIcon
+                  sx={{
+                      color: isDark == false ? '#5C6F73' : '#d9d9d9',
+                      fontSize: '28px',
+                  }}
+              />
+              <Typography
+                  sx={{
+                      position: 'absolute',
+                      top: '0%',
+                      left: '-24%',
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      backgroundColor:'#5C6F73',
+                      color: '#d9d9d9',
+                      textAlign:  'center',
+                      fontSize: '12px',
+                    }}
+                    >
+                      {products.length}
+              </Typography>
+            </Box>
+          </Link>
+          <Categories />
+        </>
       )}
       
       {loading == false ? (

@@ -3,6 +3,7 @@ import userSlice from "./userSlice"
 import menuSlice from "./menuSlice"
 import themeSlice from "./themeSlice"
 import messageSlice from "./messageSlice"
+import cartSlice from "./cartSlice"
 
 export default configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
         menu: menuSlice,
         theme: themeSlice,
         message: messageSlice,
+        cart: cartSlice,
     }
 })
