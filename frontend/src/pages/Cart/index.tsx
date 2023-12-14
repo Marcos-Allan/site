@@ -3,6 +3,7 @@ import { useState, useEffect, useLayoutEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { handleCanceled } from '../../redux/messageSlice'
 import { removeProduct, decreaseProduct, increaseProduct } from '../../redux/cartSlice'
+import { handleModal } from '../../redux/modalSlice'
 
 import { Box, Typography, IconButton } from '@mui/material'
 
@@ -10,11 +11,11 @@ import Menu from '../../components/Menu'
 import Loading from '../../components/Loading'
 import MenuLateral from '../../components/MenuLateral'
 import Message from '../../components/Message'
+import Modal from '../../components/Modal'
 
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import CloseIcon from '@mui/icons-material/Close';
-
 import { Link } from 'react-router-dom'
 
 function Cart() {
@@ -31,6 +32,7 @@ function Cart() {
   const { isDark } = useSelector((state:any) => state.theme as any)
   const { isCanceled } = useSelector((state:any) => state.message as any)
   const { products } =useSelector((state:any) => state.cart as any)
+  const { isOpenModal } = useSelector((state:any) => state.modal as any)
 
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -51,17 +53,25 @@ function Cart() {
 
     <Box
       sx={{
-        position: 'relative',
-        width: '100dvw',
-        overflow: 'hidden',
-        height: '100dvh',
-        overflowY: 'scroll',
-        paddingTop: '164px',
+        // position: 'relative',
+        // width: '100dvw',
+        // minHeight: '100%',
+        // paddingTop: '164px',
+        // display: 'flex',
+        // justifyContent: 'flex-start',
+        // alignItems: 'center',
+        // overflowY: 'scroll',
+        // flexDirection: 'column',
+        // backgroundColor: isDark == false ? '#ebf0f2' : '#2e3c41',  
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
         flexDirection: 'column',
-        backgroundColor: isDark == false ? '#ebf0f2' : '#2e3c41',  
+        width: '100dvw',
+        height: 'calc(100dvh - 164px)',
+        backgroundColor: isDark == false ? '#ebf0f2' : '#313E40',
+        paddingTop: '164px',
+        overflowY: 'scroll',
       }}
     >
       <Menu signs={false} />
@@ -156,7 +166,10 @@ function Cart() {
                           right: '0%',
                           top: '0%'
                         }}
-                        onClick={() => dispatch(removeProduct(product))}
+                        onClick={() => {
+                          dispatch(handleModal(true))
+                          dispatch(removeProduct(product))
+                        }}
                       >
                         <CloseIcon
                           sx={{
@@ -174,7 +187,10 @@ function Cart() {
                         }}
                       >
                         <IconButton
-                          onClick={() => dispatch(decreaseProduct(product))}
+                          onClick={() => {
+                            dispatch(handleModal(true))
+                            dispatch(decreaseProduct(product))
+                          }}
                         >
                             <RemoveIcon
                               sx={{
@@ -192,7 +208,10 @@ function Cart() {
                           {product.quantity}
                         </Typography>
                         <IconButton
-                          onClick={() => dispatch(increaseProduct(product))}
+                          onClick={() => {
+                            dispatch(handleModal(true))
+                            dispatch(increaseProduct(product))
+                          }}
                         >
                             <AddIcon
                               sx={{
@@ -242,6 +261,10 @@ function Cart() {
       
       {isCanceled == false && (
         <Message />
+      )}
+
+      {isOpenModal == true && (
+          <Modal />
       )}
       <MenuLateral />
 

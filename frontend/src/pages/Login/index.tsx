@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 
+import { Link } from 'react-router-dom'
+
 import { Box } from '@mui/material'
 import Menu from '../../components/Menu'
 
@@ -29,10 +31,12 @@ import GoogleLogin from '../../components/GoogleLogin'
 
 import ButtonLogin from "../../components/ButtonLogin";
 import FacebookLoginC from "../../components/FacebookLogin";
+import Modal from "../../components/Modal";
 
 function Login() {
 
     const { isDark } = useSelector((state:any) => state.theme as any)
+    const { isOpenModal } = useSelector((state:any) => state.modal as any)
     
     const {
         isLogged,
@@ -99,6 +103,7 @@ function Login() {
             >
 
             <Menu signs={true} />
+            <Link to='http://localhost:3000/auth/google'>Google ? :)</Link>
             
             {user && user.img && (
                 <div
@@ -134,7 +139,10 @@ function Login() {
 
                 </Box>
             )}
-
+            
+            {isOpenModal == true && (
+                <Modal />
+            )}
 
             {/* <GoogleLogin
                 onSuccess={credentialResponse => {

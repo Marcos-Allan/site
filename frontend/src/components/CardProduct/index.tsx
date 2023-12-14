@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { useSpring, animated } from '@react-spring/web'
 import { addProduct } from '../../redux/cartSlice'
+import { handleModal } from '../../redux/modalSlice'
 
 interface Product {
     descont: string,
@@ -154,6 +155,7 @@ function CardProduct(props: Product) {
                         animatedClicked()
                         const product:Product = { descont: props.descont, price: props.price, image: props.image, id: props.id, delay: props.delay }
                         handleAddProductToCart(product)
+                        dispatch(handleModal(true))
                         // product
                     }}
                     variant='contained'

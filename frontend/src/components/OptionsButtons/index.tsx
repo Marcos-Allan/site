@@ -83,6 +83,7 @@ function OptionsButtons() {
                                 }else{
                                     return
                                 }
+                                //USAR A PÁGINA '/auth/logout' PARA DESTRUIR AS INFORMAÇÕES
                             }}
                         >Logout</MenuItem>
                     </MuiMenu>

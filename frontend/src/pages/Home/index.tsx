@@ -12,6 +12,7 @@ import CardProduct from '../../components/CardProduct'
 import Loading from '../../components/Loading'
 import MenuLateral from '../../components/MenuLateral'
 import Message from '../../components/Message'
+import Modal from '../../components/Modal'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom'
 
@@ -27,7 +28,8 @@ function Home() {
   
   const dispatch = useDispatch()
   const { products } =useSelector((state:any) => state.cart as any)
-
+  const { isOpenModal } = useSelector((state:any) => state.modal as any)
+  
   const { 
     isLogged,
     first_name,
@@ -161,6 +163,11 @@ function Home() {
       {isCanceled == false && (
         <Message />
       )}
+
+      {isOpenModal == true && (
+          <Modal />
+      )}
+
       <MenuLateral />
 
     </Box>
