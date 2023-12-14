@@ -10,6 +10,7 @@ interface Product {
     price: string,
     image: any,
     id: string,
+    delay: number,
 }
 
 function CardProduct(props: Product) {
@@ -25,12 +26,15 @@ function CardProduct(props: Product) {
         console.log(products)
     }
     
+    const isLeft = props.delay % 2 == 0
+
     const [springsClick, apiClick] = useSpring(
         () => ({
-            from: { x: 500, opacity: 0, scale: 1 },
+            from: { x: isLeft ? 500 : -500, opacity: 0, scale: 1 },
             to: { x: 0, opacity: 1, scale: 1 },
             x: 0,
             opacity: 1,
+            delay: 350 * props.delay,
             config: {
                 duration: 400,
                 scale: [1, 1, 1],
@@ -75,7 +79,7 @@ function CardProduct(props: Product) {
             <Box
                 sx={{
                     width: '60px',
-                    backgroundColor: Number(props.descont) <= 50 ? '#fd7c7c' : '#a9fd7c',
+                    backgroundColor: Number(props.descont) < 35 ? '#fd7c7c' : '#a9fd7c',
                     position: 'absolute',
                     top: '0%',
                     right: '0%',
@@ -89,7 +93,7 @@ function CardProduct(props: Product) {
             >
                 <Typography
                     sx={{
-                        color: isDark == false ? '#000000' : '#000000',
+                        color:'#000000',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -119,24 +123,36 @@ function CardProduct(props: Product) {
                     width: '100%',
                     display: 'flex',
                     padding: '10px 0px',
-                    justifyContent: 'center',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
                     alignItems: 'center',
                 }}
             >
                 <Typography
                     sx={{
                         fontFamily: 'Aldrich, sans-serif',
-                        color: isDark == false ? '#000000' : '#ffffff'
+                        color: isDark == false ? '#0000008f' : '#ffffff8f',
+                        textDecoration: 'line-through',
+                        fontSize: '18px',
                     }}
                     >
-                    U$ {props.price}
+                    R$ {props.price}
+                </Typography>
+                <Typography
+                    sx={{
+                        fontFamily: 'Aldrich, sans-serif',
+                        color: isDark == false ? '#000000' : '#ffffff',
+                        fontSize: '21px',
+                    }}
+                    >
+                    R$ {((Number(props.price) - (Number(props.price) / 100) * Number(props.descont))).toFixed(2)}
                 </Typography>
             </Box>
             
                 <Button
                     onClick={() => {
                         animatedClicked()
-                        const product:Product = { descont: props.descont, price: props.price, image: props.image, id: props.id }
+                        const product:Product = { descont: props.descont, price: props.price, image: props.image, id: props.id, delay: props.delay }
                         handleAddProductToCart(product)
                         // product
                     }}
@@ -151,12 +167,13 @@ function CardProduct(props: Product) {
                             backgroundColor: isDark == false ? '#ebf0f2' : '#313E40',
                         }
                     }}
-                >
+                    >
                     <Typography
                         sx={{
                             fontFamily: 'Aldrich, sans-serif',
                             color: isDark == false ? '#000000' : '#ffffff',
                             zIndex: 12,
+                            fontSize: '18px',
                         }}
                     >
                         Add to cart

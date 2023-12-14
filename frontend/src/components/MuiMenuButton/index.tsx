@@ -17,10 +17,12 @@ function MuiMenuButton(){
                 maxWidth: '60px',
                 flexGrow: 1,
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 alignItems: 'center',
                 marginRight: '9.8px',
                 color: isDark == false ? '#5C6F73' : '#d9d9d9',
+                justifySelf: 'flex-end',
+                alignContent: 'flex-end',
             }}
         >
             <MenuIcon 

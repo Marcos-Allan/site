@@ -42,10 +42,17 @@ function Menu(props: Props) {
                 </>
             )}
             {props.signs == true && (
-                <>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexGrow: 1,
+                        justifyContent: 'flex-end',
+                        gap: '10px'
+                    }}
+                >
                     <MuiReturnButton />
                     <MuiIconButton />
-                </>
+                </Box>
             )}
         </Box>
     )

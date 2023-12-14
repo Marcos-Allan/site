@@ -137,20 +137,21 @@ function Home() {
               fontSize: '22px',
               fontWeight: '500',
               letterSpacing: '3px',
-              maxWidth: '60vw',
+              maxWidth: '58vw',
               lineHeight: '28px',
               margin: '20px auto',
               fontFamily: 'Aldrich, sans-serif',
               color: isDark == false ? '#000000' : '#ffffff',
             }}
-          >Produtos Cadastrados em um Data Base</Typography>
+          >Produtos Cadastrados no Banco de Dados</Typography>
 
-          {produtos.map((produto) => (
+          {produtos.map((produto, num) => (
             <CardProduct
               id={produto._id}
               descont={produto.descont}
               image={produto.image}
               price={produto.price}
+              delay={num}
             />
           ))}
 
