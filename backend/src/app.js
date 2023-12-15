@@ -10,7 +10,11 @@ require('./auth')
 
 const port = process.env.PORT || 3000
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    methods: 'GET,POST,PUT,DELETE'
+}))
 
 // PASSPORT OAUTH GOOGLE
 
@@ -44,9 +48,19 @@ app.get('/auth/google/failure', (req, res) => {
 })
 
 app.get('/auth/protected', isLoggeIn, (req, res) => {
-    let name = req.user.displayName;
-    // res.send(`HELLO ${name}!`)
-    console.log(name)
+    let { given_name, family_name, email, picture } = req.user;
+    const user = {
+        given_name: given_name,
+        family_name: family_name,
+        email: email,
+        picture: picture,
+    }
+    res.cookie(
+        'zUser',
+        JSON.stringify(user),
+        { maxAge: 3600000, httpOnly: false, secure: false }
+    )
+    console.log(user)
     res.redirect('http://localhost:5173/login');
 })
 

@@ -3,7 +3,7 @@
 
 // import { GoogleLogin } from "@react-oauth/google"
 // import { jwtDecode, JwtPayload } from "jwt-decode";
-
+import  Cookies from 'universal-cookie'
 import { useEffect, useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
@@ -31,12 +31,10 @@ import GoogleLogin from '../../components/GoogleLogin'
 
 import ButtonLogin from "../../components/ButtonLogin";
 import FacebookLoginC from "../../components/FacebookLogin";
-import Modal from "../../components/Modal";
 
 function Login() {
 
     const { isDark } = useSelector((state:any) => state.theme as any)
-    const { isOpenModal } = useSelector((state:any) => state.modal as any)
     
     const {
         isLogged,
@@ -79,9 +77,10 @@ function Login() {
             }
         },
     });
-    
+    const cookies = new Cookies()
     useEffect(() => {
         console.log(isLogged, first_name, last_name, img)
+        
 
         const userSaved = localStorage.getItem('user')
         if(userSaved){
@@ -103,7 +102,27 @@ function Login() {
             >
 
             <Menu signs={true} />
-            <Link to='http://localhost:3000/auth/google'>Google ? :)</Link>
+            <Link
+                to='http://localhost:3000/auth/google'
+                onClick={() => {
+                    const userL = cookies.get('zUser')
+                    console.log(userL.email)
+                    console.log(userL.given_name)
+                    console.log(userL.family_name)
+                    console.log(userL.picture)
+                    setUser(userL)
+                    const userC = {
+                        isLogged: true,
+                        first_name: userL.given_name,
+                        last_name: userL.family_name,
+                        img: userL.picture
+                    }
+                    dispatch(changeUser(userC))
+                }}
+            >
+                    Google ? :)
+            </Link>
+            {/* <Link to='http://localhost:5173/auth'>Google ? :)</Link> */}
             
             {user && user.img && (
                 <div
@@ -138,10 +157,6 @@ function Login() {
                     <ButtonLogin event={login} icon={gmailIcon} platformName="Gmail" />
 
                 </Box>
-            )}
-            
-            {isOpenModal == true && (
-                <Modal />
             )}
 
             {/* <GoogleLogin
