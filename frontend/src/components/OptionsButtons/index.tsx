@@ -79,6 +79,7 @@ function OptionsButtons() {
                             onClick={() => {
                                 handleClose()
                                 if(isLogged == true){
+                                    window.open('http://localhost:3000/auth/logout',  '_self')
                                     dispatch(logout())
                                 }else{
                                     return

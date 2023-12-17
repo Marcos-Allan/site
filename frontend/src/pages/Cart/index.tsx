@@ -17,6 +17,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link } from 'react-router-dom'
+import { handleText } from '../../redux/textMessageSlice'
 
 function Cart() {
   
@@ -167,6 +168,7 @@ function Cart() {
                           top: '0%'
                         }}
                         onClick={() => {
+                          dispatch(handleText('Produto removido do Carrinho'))
                           dispatch(handleModal(true))
                           dispatch(removeProduct(product))
                         }}
@@ -189,6 +191,7 @@ function Cart() {
                         <IconButton
                           onClick={() => {
                             dispatch(handleModal(true))
+                            dispatch(handleText(`Retirou 1 unidade do produto`))
                             dispatch(decreaseProduct(product))
                           }}
                         >
@@ -211,6 +214,7 @@ function Cart() {
                           onClick={() => {
                             dispatch(handleModal(true))
                             dispatch(increaseProduct(product))
+                            dispatch(handleText(`Adicionou 1 unidade do produto`))
                           }}
                         >
                             <AddIcon

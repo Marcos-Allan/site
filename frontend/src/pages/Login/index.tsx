@@ -1,14 +1,5 @@
-// const googleClientId = '653003675525-b05q2v3i6r29kk295at4edhvdq8unpiv.apps.googleusercontent.com'
-// const googleSecretKey = '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'
-
-// import { GoogleLogin } from "@react-oauth/google"
-// import { jwtDecode, JwtPayload } from "jwt-decode";
 import  Cookies from 'universal-cookie'
 import { useEffect, useState } from "react";
-import { useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
-
-import { Link } from 'react-router-dom'
 
 import { Box } from '@mui/material'
 import Menu from '../../components/Menu'
@@ -23,14 +14,10 @@ interface User {
     img: string,
 }
 
-import gmailIcon from '../../images/Gmail_icon.png'
-
 import MenuLateral from "../../components/MenuLateral";
 
 import GoogleLogin from '../../components/GoogleLogin'
-
-import ButtonLogin from "../../components/ButtonLogin";
-import FacebookLoginC from "../../components/FacebookLogin";
+import FacebookLoginC from '../../components/FacebookLogin';
 
 function Login() {
 
@@ -47,41 +34,45 @@ function Login() {
 
     const [user, setUser] = useState<User>()
     const [restart, setRestart] = useState<boolean>(true)
-
-    const login = useGoogleLogin({
-        onSuccess: async (response) => {
-            try {
-                const res = await axios.get(
-                    'https://www.googleapis.com/oauth2/v3/userinfo',
-                    {
-                        headers: {
-                            Authorization: `Bearer ${response.access_token}`
-                        }
-                    }
-                )
-                console.log(res.data)
-                
-                const userS = {
-                    isLogged: true,
-                    first_name: res.data ? res.data.given_name : 'uA',
-                    last_name: res.data ? res.data.family_name : 'uM',
-                    img: res.data ? res.data.picture : 'uI'
-                }
-                setUser(userS)
-                setRestart(!restart)
-                
-                dispatch(changeUser(userS))
-
-            } catch (error) {
-                console.log(error)
-            }
-        },
-    });
+    
     const cookies = new Cookies()
+
+    const googleLogin = async () => {
+        // window.open('http://localhost:3000/auth/google', 'popup', 'width=360, height=550')
+        window.open('http://localhost:3000/auth/google', '_self')
+
+        const userL = cookies.get('zUser')
+        console.log(userL.email)
+        console.log(userL.given_name)
+        console.log(userL.family_name)
+        console.log(userL.picture)
+        setUser(userL)
+        const userC = {
+            isLogged: true,
+            first_name: userL.given_name,
+            last_name: userL.family_name,
+            img: userL.picture
+        }
+        dispatch(changeUser(userC))
+        setRestart(!restart)
+    }
+    
+
     useEffect(() => {
         console.log(isLogged, first_name, last_name, img)
-        
 
+        const userL = cookies.get('zUser')
+        if(userL){
+            setUser(userL)
+            const userC = {
+                isLogged: true,
+                first_name: userL.given_name,
+                last_name: userL.family_name,
+                img: userL.picture
+            }
+            dispatch(changeUser(userC))
+        }
+        
         const userSaved = localStorage.getItem('user')
         if(userSaved){
             setUser(JSON.parse(userSaved))
@@ -102,27 +93,6 @@ function Login() {
             >
 
             <Menu signs={true} />
-            <Link
-                to='http://localhost:3000/auth/google'
-                onClick={() => {
-                    const userL = cookies.get('zUser')
-                    console.log(userL.email)
-                    console.log(userL.given_name)
-                    console.log(userL.family_name)
-                    console.log(userL.picture)
-                    setUser(userL)
-                    const userC = {
-                        isLogged: true,
-                        first_name: userL.given_name,
-                        last_name: userL.family_name,
-                        img: userL.picture
-                    }
-                    dispatch(changeUser(userC))
-                }}
-            >
-                    Google ? :)
-            </Link>
-            {/* <Link to='http://localhost:5173/auth'>Google ? :)</Link> */}
             
             {user && user.img && (
                 <div
@@ -151,23 +121,11 @@ function Login() {
                         padding: '14px',
                     }}
                     >
-                    <GoogleLogin event={login} />
+                    <GoogleLogin event={googleLogin} />
                     <FacebookLoginC />
-                    {/* <ButtonLogin event={login} icon={facebookIcon} platformName="Facebook" /> */}
-                    <ButtonLogin event={login} icon={gmailIcon} platformName="Gmail" />
 
                 </Box>
             )}
-
-            {/* <GoogleLogin
-                onSuccess={credentialResponse => {
-                    const credentialResponseDecoded = jwtDecode<JwtPayload>(credentialResponse.credential)
-                    console.log(credentialResponseDecoded);
-                }}
-                onError={() => {
-                    console.log('Login Failed');
-                }}
-            /> */}
 
             <MenuLateral />
         </Box>

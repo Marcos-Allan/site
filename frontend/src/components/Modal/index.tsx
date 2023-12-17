@@ -10,6 +10,7 @@ function Modal(){
 
     const dispatch = useDispatch()
     const { isDark } = useSelector((state:any) => state.theme as any)
+    const { text } = useSelector((state:any) => state.textMessage as any)
 
     const [ springs, apiClick ] = useSpring(
         () => ({
@@ -67,6 +68,8 @@ function Modal(){
                 position: 'fixed',
                 top: '7%',
                 left: '0%',
+                width: '100%',
+                margin: '0 auto',
                 overflow: 'hidden',
                 zIndex: 30,
                 ...springs
@@ -114,7 +117,7 @@ function Modal(){
                         color: isDark == false ? '#000000' : '#ffffff',
                     }}
                 >
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    { text }
                 </Typography>
                 <animated.div
                     style={{

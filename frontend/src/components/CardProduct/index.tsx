@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useSpring, animated } from '@react-spring/web'
 import { addProduct } from '../../redux/cartSlice'
 import { handleModal } from '../../redux/modalSlice'
+import { handleText } from '../../redux/textMessageSlice'
 
 interface Product {
     descont: string,
@@ -24,6 +25,7 @@ function CardProduct(props: Product) {
     function handleAddProductToCart(product:any){
         // console.log(product)
         dispatch(addProduct(product))
+        dispatch(handleText('Produto Adicionado ao carrinho'))
         console.log(products)
     }
     

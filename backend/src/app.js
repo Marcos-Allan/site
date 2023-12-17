@@ -61,18 +61,21 @@ app.get('/auth/protected', isLoggeIn, (req, res) => {
         { maxAge: 3600000, httpOnly: false, secure: false }
     )
     console.log(user)
-    res.redirect('http://localhost:5173/login');
+    res.redirect('http://localhost:5173/');;
 })
 
 app.use('/auth/logout', (req, res) => {
     req.session.destroy()
-    res.send('see you again')
+    res.clearCookie('zUser')
+    res.redirect('http://localhost:5173/');;
 })
 // FIM PASSPORT OAUTH GOOGLE
 
 const productRouter = require('./routes/Product')
+// const userRouter= require('./routes/User')
 
 app.use('/', productRouter)
+// app.use('/user', userRouter)
 app.use('/uploads', express.static('uploads'))
 
 app.listen(port, () => {

@@ -6,6 +6,7 @@ import themeSlice from "./themeSlice"
 import messageSlice from "./messageSlice"
 import cartSlice from "./cartSlice"
 import modalSlice from "./modalSlice"
+import textMessageSlice from "./textMessageSlice"
 
 export default configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export default configureStore({
         theme: themeSlice,
         message: messageSlice,
         cart: cartSlice,
-        modal: modalSlice
+        modal: modalSlice,
+        textMessage: textMessageSlice,
     }
 })

@@ -7,6 +7,7 @@ import { useSpring, animated } from '@react-spring/web'
 
 import { Link } from 'react-router-dom'
 
+
 function Message() {
 
     const dispatch = useDispatch()
@@ -112,7 +113,10 @@ function Message() {
                         borderRadiusBottomLeft: '8px',
                         borderRadiusBottomRight: '8px',
                         backgroundColor: isDark == false ? '#ebf0f2cb' : '#2e3c41cb',
-                        boxShadow: '0px 0px 0px 0px transparent'
+                        boxShadow: '0px 0px 0px 0px transparent',
+                        '&:hover':{
+                            backgroundColor: isDark == false ? '#ebf0f2cb' : '#2e3c41cb',
+                        }
                     }}
                 >
                     <Link to={'/login'}>
@@ -126,7 +130,7 @@ function Message() {
                                 color: isDark == false ? '#000000' : '#ffffff',
                                 fontFamily: 'Aldrich, sans-serif',
                             }}
-                            >
+                        >
                             Fazer Login
                         </Typography>
                     </Link>

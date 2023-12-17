@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useSpring, animated } from '@react-spring/web'
+
 import googleIcon from '../../images/Google_icon.png'
 interface Props{
     event: any,
