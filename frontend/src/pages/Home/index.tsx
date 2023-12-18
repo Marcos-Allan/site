@@ -1,5 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
 import { api } from '../../services/api'
+import  Cookies from 'universal-cookie'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { handleCanceled } from '../../redux/messageSlice'
@@ -15,6 +16,7 @@ import Message from '../../components/Message'
 import Modal from '../../components/Modal'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom'
+import { changeUser } from '../../redux/userSlice'
 
 
 interface ProductsProps {
@@ -24,6 +26,13 @@ interface ProductsProps {
   _id: string,
 }
 
+interface User {
+  isLogged: boolean,
+  first_name: string,
+  last_name: string,
+  img: string,
+}
+
 function Home() {
   
   const dispatch = useDispatch()
@@ -31,10 +40,7 @@ function Home() {
   const { isOpenModal } = useSelector((state:any) => state.modal as any)
   
   const { 
-    isLogged,
-    first_name,
-    last_name,
-    img
+    isLogged
   } = useSelector((state:any) => state.user as any)
 
   const { isDark } = useSelector((state:any) => state.theme as any)
@@ -42,14 +48,27 @@ function Home() {
 
   const [produtos, setProdutos] = useState<ProductsProps[]>([])
   const [loading, setLoading] = useState<boolean>(false)
+  const [user, setUser] = useState<User>()
 
-    useEffect(() => {
-      loadProducts()
-      console.log(isLogged)
-      console.log(first_name, img, last_name, isLogged)
-      setLoading(true)
-      console.log('canceled '+isCanceled)
-    },[])
+  const cookies = new Cookies()
+
+  useEffect(() => {
+    loadProducts()
+    setLoading(true)
+    const userL = cookies.get('zUser')
+    if(userL){
+      setUser(userL)
+      const userC = {
+        isLogged: true,
+        first_name: userL.given_name,
+        last_name: userL.family_name,
+        img: userL.picture
+      }
+      console.log(user)
+        dispatch(changeUser(userC))
+        dispatch(handleCanceled(true))
+    }
+  },[])
     
     useLayoutEffect(() => {
       if(isLogged == true){

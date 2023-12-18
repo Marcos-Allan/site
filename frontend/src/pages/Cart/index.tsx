@@ -191,8 +191,8 @@ function Cart() {
                         <IconButton
                           onClick={() => {
                             dispatch(handleModal(true))
-                            dispatch(handleText(`Retirou 1 unidade do produto`))
                             dispatch(decreaseProduct(product))
+                            dispatch(handleText(`Retirou ${(product.quantity + 1) - product.quantity} unidade do produto`))
                           }}
                         >
                             <RemoveIcon

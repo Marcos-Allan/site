@@ -37,15 +37,7 @@ function Login() {
     
     const cookies = new Cookies()
 
-    const googleLogin = async () => {
-        // window.open('http://localhost:3000/auth/google', 'popup', 'width=360, height=550')
-        window.open('http://localhost:3000/auth/google', '_self')
-
-        const userL = cookies.get('zUser')
-        console.log(userL.email)
-        console.log(userL.given_name)
-        console.log(userL.family_name)
-        console.log(userL.picture)
+    function saveUser(userL:any){
         setUser(userL)
         const userC = {
             isLogged: true,
@@ -54,6 +46,14 @@ function Login() {
             img: userL.picture
         }
         dispatch(changeUser(userC))
+    }
+    
+    const googleLogin = async () => {
+        // window.open('http://localhost:3000/auth/google', 'popup', 'width=360, height=550')
+        window.open('http://localhost:3000/auth/google', '_self')
+        
+        const userL = cookies.get('zUser')
+        saveUser(userL)
         setRestart(!restart)
     }
     
@@ -63,14 +63,7 @@ function Login() {
 
         const userL = cookies.get('zUser')
         if(userL){
-            setUser(userL)
-            const userC = {
-                isLogged: true,
-                first_name: userL.given_name,
-                last_name: userL.family_name,
-                img: userL.picture
-            }
-            dispatch(changeUser(userC))
+            saveUser(userL)
         }
         
         const userSaved = localStorage.getItem('user')
