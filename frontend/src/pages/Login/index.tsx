@@ -34,6 +34,7 @@ function Login() {
 
     const [user, setUser] = useState<User>()
     const [restart, setRestart] = useState<boolean>(true)
+    const [isLoading, setLoading] = useState<boolean>(false)
     
     const cookies = new Cookies()
 
@@ -49,12 +50,14 @@ function Login() {
     }
     
     const googleLogin = async () => {
+        setLoading(true)
         // window.open('http://localhost:3000/auth/google', 'popup', 'width=360, height=550')
         window.open('http://localhost:3000/auth/google', '_self')
         
         const userL = cookies.get('zUser')
         saveUser(userL)
         setRestart(!restart)
+        setLoading(false)
     }
     
 
@@ -113,9 +116,9 @@ function Login() {
                         borderRadius: '10px',
                         padding: '14px',
                     }}
-                    >
-                    <GoogleLogin event={googleLogin} />
-                    <FacebookLoginC />
+                >
+                    <GoogleLogin loading={isLoading} event={googleLogin} />
+                    <FacebookLoginC loading={isLoading} />
 
                 </Box>
             )}

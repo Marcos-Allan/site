@@ -148,7 +148,7 @@ function Home() {
       )}
       
       {loading == false ? (
-        <Loading />
+        <Loading size={60} />
       ) : (
         <>
           <Typography

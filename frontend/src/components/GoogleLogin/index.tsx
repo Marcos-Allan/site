@@ -2,9 +2,12 @@ import { Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useSpring, animated } from '@react-spring/web'
 
-import googleIcon from '../../images/Google_icon.png'
+import googleIcon from '../../assets/icons/Google_icon.png'
+import Loading from '../Loading'
+
 interface Props{
     event: any,
+    loading: boolean,
 }
 
 function ButtonLogin(props: Props){
@@ -38,42 +41,70 @@ function ButtonLogin(props: Props){
     }
     
     return(
-        <animated.div
-            onClick={() => {
-                animatedClicked()
-                setTimeout(() => {
-                    props.event()
-                }, 200);
-            }}
-            style={{
-                backgroundColor: isDark == false ?'#ebf0f2' : '#313E40',
-                width: '84%',
-                padding:'16px 0px',
-                textAlign: 'center',
-                borderRadius: '10px',
-                margin: '6px 0px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                flexDirection: 'row',
-                ...springs
-            }}
-        >
-            <Typography
-                sx={{
-                    flexGrow: 1,
-                    color: isDark == false ? '#000000' : '#ffffff',
+        (props.loading == false ? (
+            <animated.div
+                onClick={() => {
+                    animatedClicked()
+                    setTimeout(() => {
+                        props.event()
+                    }, 200);
+                }}
+                style={{
+                    backgroundColor: isDark == false ? '#ebf0f2' : '#313E40',
+                    width: '84%',
+                    padding:'16px 0px',
+                    textAlign: 'center',
+                    borderRadius: '10px',
+                    maxHeight: '72px',
+                    margin: '6px 0px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    flexDirection: 'row',
+                    ...springs
                 }}
             >
-                Login Com Google
-            </Typography>
-            <img
-                src={googleIcon}
+                <Typography
+                    sx={{
+                        flexGrow: 1,
+                        color: isDark == false ? '#000000' : '#ffffff',
+                    }}
+                >
+                    Login Com Google
+                </Typography>
+                <img
+                    src={googleIcon}
+                    style={{
+                        marginRight: '15px',
+                    }}
+                />
+            </animated.div>
+        ):(
+            <animated.div
                 style={{
-                    marginRight: '15px',
+                    backgroundColor: isDark == false ? '#ebf0f290' : '#313E4090',
+                    width: '84%',
+                    padding:'16px 0px',
+                    textAlign: 'center',
+                    height: '40px',
+                    borderRadius: '10px',
+                    margin: '6px 0px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    flexDirection: 'row',
+                    ...springs
                 }}
-            />
-        </animated.div>
+            >
+                <Loading size={24} />
+                <img
+                    src={googleIcon}
+                    style={{
+                        marginRight: '15px',
+                    }}
+                />
+            </animated.div> 
+        ))
     )
 }
 

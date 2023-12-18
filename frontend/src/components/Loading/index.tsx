@@ -1,13 +1,17 @@
 import { CircularProgress } from '@mui/material'
 import { useSelector } from 'react-redux'
 
-function Loading() {
+interface Props {
+    size: number
+}
+
+function Loading(props: Props) {
     
     const { isDark } = useSelector((state:any) => state.theme as any)
 
     return(
         <CircularProgress
-        size={60}
+        size={props.size}
             variant='indeterminate'
             sx={{
                 display: 'block',
